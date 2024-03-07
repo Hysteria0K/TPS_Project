@@ -123,6 +123,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &367474963
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 367474964}
+  - component: {fileID: 367474965}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &367474964
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367474963}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.72313833, y: 2.0500002, z: -2.0549164}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &367474965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 367474963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12124e8110c388c48a169ec42bd847b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &587442566
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,9 +459,10 @@ MonoBehaviour:
   Pl_Pos: {x: 0, y: 0, z: 0}
   Camera_Center: {x: 0, y: 0, z: 0}
   radius: 2.685
-  speed: 0
+  speed: 1.5
   angle: 2.81
-  acos2: 0
+  acos: 0
+  rotation_X: 0
 --- !u!1 &1081110274
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,10 +675,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c74f7e18c70dc204fa0db6fca3af13ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player_Speed: 1
+  Player_Speed: 10
   rotationSpeed: 360
   direction: {x: 0, y: 0, z: 0}
   Player_Position: {x: 0, y: 0, z: 0}
+  Camera: {fileID: 963194225}
+  Cam_direction: {x: 0, y: 0, z: 0, w: 0}
 --- !u!143 &1988465864
 CharacterController:
   m_ObjectHideFlags: 0
