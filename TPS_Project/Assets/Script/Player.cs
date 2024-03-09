@@ -43,32 +43,16 @@ public class Player : MonoBehaviour
                 rotationSpeed * Time.deltaTime / Vector3.Angle(transform.forward, direction));
 
                 transform.LookAt(transform.position + forward);
+                this.transform.rotation = Quaternion.Euler(0.0f, transform.eulerAngles.y, transform.eulerAngles.z);
             }
 
-            characterController.Move(direction * Player_Speed * Time.deltaTime);
+            characterController.Move(new Vector3(direction.x, 0.0f, direction.z) * Player_Speed * Time.deltaTime);
         }
 
         else
         {
-            if(Input.GetKey(KeyCode.W))
-            {
-                this.transform.Translate(Vector3.forward * Player_Zoom_Speed * Time.deltaTime);
-            }
-
-            if (Input.GetKey(KeyCode.A))
-            {
-                this.transform.Translate(Vector3.left * Player_Zoom_Speed * Time.deltaTime);
-            }
-
-            if (Input.GetKey(KeyCode.D))
-            {
-                this.transform.Translate(Vector3.right * Player_Zoom_Speed * Time.deltaTime);
-            }
-
-            if (Input.GetKey(KeyCode.S))
-            {
-                this.transform.Translate(Vector3.back * Player_Zoom_Speed * Time.deltaTime);
-            }
+            characterController.Move(new Vector3(direction.x, 0.0f, direction.z) * Player_Zoom_Speed * Time.deltaTime);
         }
+
     }
 }
