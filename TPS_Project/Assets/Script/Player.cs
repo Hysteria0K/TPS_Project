@@ -3,6 +3,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float Player_Speed = 10.0f;
+    public float Player_Zoom_Speed = 1.5f;
     public float rotationSpeed = 360f;
 
     public Vector3 direction;
@@ -13,6 +14,8 @@ public class Player : MonoBehaviour
     public GameObject Camera;
 
     public Quaternion Cam_direction;
+
+    public bool Zoom_Check = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +26,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      
+        Player_Position = this.transform.position;
     }
 
     void FixedUpdate()
@@ -32,15 +35,40 @@ public class Player : MonoBehaviour
 
         direction = Cam_direction * new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
-        if (direction.sqrMagnitude > 0.01f)
+        if (Zoom_Check == false)
         {
-            Vector3 forward = Vector3.Slerp(transform.forward, direction,
-            rotationSpeed * Time.deltaTime / Vector3.Angle(transform.forward, direction));
+            if (direction.sqrMagnitude > 0.01f)
+            {
+                Vector3 forward = Vector3.Slerp(transform.forward, direction,
+                rotationSpeed * Time.deltaTime / Vector3.Angle(transform.forward, direction));
 
-            transform.LookAt(transform.position + forward);
+                transform.LookAt(transform.position + forward);
+            }
+
+            characterController.Move(direction * Player_Speed * Time.deltaTime);
         }
 
-        characterController.Move(direction * Player_Speed * Time.deltaTime);
-        Player_Position = this.transform.position;
+        else
+        {
+            if(Input.GetKey(KeyCode.W))
+            {
+                this.transform.Translate(Vector3.forward * Player_Zoom_Speed * Time.deltaTime);
+            }
+
+            if (Input.GetKey(KeyCode.A))
+            {
+                this.transform.Translate(Vector3.left * Player_Zoom_Speed * Time.deltaTime);
+            }
+
+            if (Input.GetKey(KeyCode.D))
+            {
+                this.transform.Translate(Vector3.right * Player_Zoom_Speed * Time.deltaTime);
+            }
+
+            if (Input.GetKey(KeyCode.S))
+            {
+                this.transform.Translate(Vector3.back * Player_Zoom_Speed * Time.deltaTime);
+            }
+        }
     }
 }

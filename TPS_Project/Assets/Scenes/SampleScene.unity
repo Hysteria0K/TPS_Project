@@ -459,10 +459,14 @@ MonoBehaviour:
   Pl_Pos: {x: 0, y: 0, z: 0}
   Camera_Center: {x: 0, y: 0, z: 0}
   radius: 2.685
-  speed: 1.5
   angle: 2.81
   acos: 0
+  Camera_Correction: 161.0828
+  Camera_Y_Set: 2.05
   rotation_X: 0
+  speed_X: 1.5
+  Zoom_In_Check: 0
+  Zoom_In_Count: 0
 --- !u!1 &1081110274
 GameObject:
   m_ObjectHideFlags: 0
@@ -676,11 +680,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player_Speed: 10
+  Player_Zoom_Speed: 3
   rotationSpeed: 360
   direction: {x: 0, y: 0, z: 0}
   Player_Position: {x: 0, y: 0, z: 0}
   Camera: {fileID: 963194225}
   Cam_direction: {x: 0, y: 0, z: 0, w: 0}
+  Zoom_Check: 0
 --- !u!143 &1988465864
 CharacterController:
   m_ObjectHideFlags: 0
