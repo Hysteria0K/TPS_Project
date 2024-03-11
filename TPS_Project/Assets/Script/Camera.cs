@@ -19,7 +19,7 @@ public class Camera : MonoBehaviour
     public float Y_Maximum = 5.0f;
     public float Y_Minimum = -15.0f;
 
-    public float acos;
+    public float float_angle;
 
     public float Camera_Correction = 161.0828f;
     public float Camera_Y_Set = 2.05f;
@@ -92,11 +92,9 @@ public class Camera : MonoBehaviour
 
         this.transform.position = Camera_Center + new Vector3(Mathf.Sin(Angle_X), 0, Mathf.Cos(Angle_X)) * radius;
 
-        acos = Mathf.Acos(Mathf.Cos(Angle_X))*180.0f/Mathf.PI;
+        float_angle = Angle_X * 180.0f/Mathf.PI;
 
-        if (Mathf.FloorToInt(Angle_X / Mathf.PI) % 2 == 1) acos = -acos;
-
-        this.transform.rotation = Quaternion.Euler(new Vector3(Angle_Y, acos - Camera_Correction, 0));
+        this.transform.rotation = Quaternion.Euler(new Vector3(Angle_Y, float_angle - Camera_Correction, 0));
 
         Zoom();
 
