@@ -85,7 +85,7 @@ public class Camera : MonoBehaviour
 
         Angle_X += rotation_X * Time.deltaTime; // 앵글 = 파이값, 마우스 움직이는거에 넣으면 될듯
 
-        Angle_Y += rotation_Y * Time.deltaTime;
+        Angle_Y -= rotation_Y * Time.deltaTime;
 
         if (Angle_X < 0) Angle_X += 2*Mathf.PI;
         else if (Angle_X > 2*Mathf.PI) Angle_X -= 2*Mathf.PI;
