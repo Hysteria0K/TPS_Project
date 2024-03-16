@@ -43,11 +43,7 @@ public class UI_Move : MonoBehaviour
             Camera_Rotate_X = Camera.GetComponent<Transform>().rotation.eulerAngles.x - 360;
         }
 
-
         Rotate_X = Camera_Rotate_X + 15;
-
-        if (Rotate_X < 0) Rotate_Y = -10;
-        else Rotate_Y = 10;
 
         this.transform.rotation = Quaternion.Euler(Rotate_X, Rotate_Y, 0);
     }
