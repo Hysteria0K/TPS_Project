@@ -70,7 +70,7 @@ public class Camera : MonoBehaviour
 
         if (Angle_Y < Y_Minimum)
         {
-            Angle_Y = Y_Minimum;
+            Angle_Y += 0.2f;
         }
         else if (Angle_Y > Y_Maximum)
         {

@@ -31,7 +31,7 @@ public class Gun : MonoBehaviour
 
     public bool Fire_Check = false;
     private float Fire_Timer = 0.0f;
-    private float Fire_Timer_Limit = 3.0f;
+    private float Fire_Timer_Limit = 0.2f;
 
     private float Recoil_Timer = 0.0f;
     private float Recoil_Timer_Limit = 0.005f;
@@ -201,9 +201,9 @@ public class Gun : MonoBehaviour
             Fire_Timer = 0.0f;
         }
 
-        if (Fire_Check == false && Recoil.x < 0.0f && Max_Recoil_x == 0.0f)
+        if (Fire_Check == false)
         {
-            Max_Recoil_x = Recoil.x;
+            if (Max_Recoil_x == 0.0f ||Max_Recoil_x > Recoil.x) Max_Recoil_x = Recoil.x;
 
             if (Recoil.x > Camera.GetComponent<Camera>().Stacked_AfterFire_Y)
             {
@@ -214,11 +214,11 @@ public class Gun : MonoBehaviour
 
             else
             {
-                Calculated_Recoil_X = Recoil.x - Camera.GetComponent<Camera>().Stacked_AfterFire_Y;
+                Calculated_Recoil_X = Max_Recoil_x - Camera.GetComponent<Camera>().Stacked_AfterFire_Y;
             }
         }
 
-        if (Calculated_Recoil_X < 0.0f && Recoil.x <= 0.0f)
+        if (Calculated_Recoil_X < 0.0f && Recoil.x <= 0.0f && Fire_Check == false)
         {
             Recoil_Timer += Time.deltaTime;
 
