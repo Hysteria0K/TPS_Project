@@ -19,10 +19,10 @@ public class Camera : MonoBehaviour
     public float Y_Maximum = 5.0f;
     public float Y_Minimum = -15.0f;
 
-    public float float_angle;
+    private float float_angle;
 
-    public float Camera_Correction = 161.0828f;
-    public float Camera_Y_Set = 2.05f;
+    private float Camera_Correction = 161.0828f;
+    private float Camera_Y_Set = 2.05f;
 
     public float rotation_X;
     public float rotation_Y;
@@ -31,20 +31,23 @@ public class Camera : MonoBehaviour
     public float speed_Y = 15f;
 
     public bool Zoom_In_Check = false;
-    public int Zoom_In_Count = 0;
+    private int Zoom_In_Count = 0;
 
+    private float Angle_X_Correction = 0.2966995f;
 
-    public float Angle_X_Correction = 0.2966995f;
+    private float AfterFire_Y = 0.0f;
+    public float Stacked_AfterFire_Y = 0.0f;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        AfterFire_Y = 0.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetMouseButtonDown(1) && Player.GetComponent<Player>().Zoom_Check == false)
         {
             Player.GetComponent<Player>().Zoom_Check = true;
@@ -59,20 +62,25 @@ public class Camera : MonoBehaviour
             Camera_Correction = 161.0828f;
             Camera_Y_Set = 2.05f;
             Angle_X += Angle_X_Correction;
-           
+
+            Player.GetComponent<Gun>().Recoil = Vector3.zero;
+            AfterFire_Y = 0.0f;
+            Player.GetComponent<Transform>().rotation = Quaternion.Euler(new Vector3(0.0f, this.transform.rotation.eulerAngles.y, 0.0f));
         }
-    }
-    void FixedUpdate()
-    {
+
         if (Angle_Y < Y_Minimum)
         {
             Angle_Y = Y_Minimum;
         }
-        else if(Angle_Y > Y_Maximum)
+        else if (Angle_Y > Y_Maximum)
         {
             Angle_Y = Y_Maximum;
         }
 
+        Recoil_Control();
+    }
+    void FixedUpdate()
+    {
         Pl_Pos = Player.GetComponent<Player>().Player_Position;
 
         Pl_Pos.y = Pl_Pos.y + Camera_Y_Set;
@@ -94,7 +102,7 @@ public class Camera : MonoBehaviour
 
         float_angle = Angle_X * 180.0f/Mathf.PI;
 
-        this.transform.rotation = Quaternion.Euler(new Vector3(Angle_Y, float_angle - Camera_Correction, 0));
+        this.transform.rotation = Quaternion.Euler(new Vector3(Angle_Y, float_angle - Camera_Correction, 0) + Player.GetComponent<Gun>().Recoil);
 
         Zoom();
 
@@ -126,5 +134,28 @@ public class Camera : MonoBehaviour
         Camera_Y_Set -= 0.035f;
         Camera_Correction -= 1.7f;
         Angle_X -= Angle_X_Correction / 10;
+    }
+
+    private void Recoil_Control()
+    {
+        if (Player.GetComponent<Gun>().Recoil.x < 0.0f)
+        {
+            AfterFire_Y = Input.GetAxis("Mouse Y") * speed_Y * Time.deltaTime;
+
+            if (AfterFire_Y > 0.0f)
+            {
+                AfterFire_Y = 0.0f;
+            }
+
+            Player.GetComponent<Gun>().Recoil.x -= AfterFire_Y;
+            Stacked_AfterFire_Y += AfterFire_Y;
+        }
+
+        if (Player.GetComponent<Gun>().Recoil.x > 0.0f)
+        {
+            Player.GetComponent<Gun>().Recoil.x = 0.0f;
+            AfterFire_Y = 0.0f;
+            Stacked_AfterFire_Y = 0.0f;
+        }
     }
 }
