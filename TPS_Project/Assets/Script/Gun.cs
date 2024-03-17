@@ -7,6 +7,7 @@ public class Gun : MonoBehaviour
 {
     public GameObject BulletPrefab;
     public GameObject Camera;
+    public GameObject UI_Status;
 
     private int Full_Magazine = 61;
     public int Magazine = 0;
@@ -84,6 +85,7 @@ public class Gun : MonoBehaviour
         {
             if (Fire_Mode != 2) Fire_Mode += 1;
             else Fire_Mode = 0;
+            UI_Status.GetComponent<UI_Status>().UI_Update();
         }
     }
 
@@ -95,6 +97,7 @@ public class Gun : MonoBehaviour
             if (Magazine == 0) Magazine = Full_Magazine - 1;
             else Magazine = Full_Magazine;
             //재장전 시간 격차 삽입 필요
+            UI_Status.GetComponent<UI_Status>().UI_Update();
         }
     }
 
@@ -108,6 +111,7 @@ public class Gun : MonoBehaviour
             Increase_Recoil();
             Fire_Check = true;
             Fire_Timer = 0.0f;
+            UI_Status.GetComponent<UI_Status>().UI_Update();
         }
     }
 
@@ -135,6 +139,7 @@ public class Gun : MonoBehaviour
                     Increase_Recoil();
                     Fire_Check = true;
                     Fire_Timer = 0.0f;
+                    UI_Status.GetComponent<UI_Status>().UI_Update();
                 }
                 Timer = 0.0f;
             }
@@ -159,6 +164,7 @@ public class Gun : MonoBehaviour
             Increase_Recoil();
             Fire_Check = true;
             Fire_Timer = 0.0f;
+            UI_Status.GetComponent<UI_Status>().UI_Update();
         }
 
         if (Auto_Check == true)
