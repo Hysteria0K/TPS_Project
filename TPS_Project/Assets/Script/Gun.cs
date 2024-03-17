@@ -209,7 +209,7 @@ public class Gun : MonoBehaviour
 
         if (Fire_Check == false)
         {
-            if (Max_Recoil_x == 0.0f ||Max_Recoil_x > Recoil.x) Max_Recoil_x = Recoil.x;
+            if (Max_Recoil_x == 0.0f || Max_Recoil_x > Recoil.x) Max_Recoil_x = Recoil.x;
 
             if (Recoil.x > Camera.GetComponent<Camera>().Stacked_AfterFire_Y)
             {
