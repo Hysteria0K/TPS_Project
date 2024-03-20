@@ -9,7 +9,7 @@ public class Gun : MonoBehaviour
     public GameObject Camera;
     public GameObject UI_Status;
 
-    private int Full_Magazine = 61;
+    public int Full_Magazine = 61;
     public int Magazine = 0;
 
     public int Fire_Mode = 0; // 0 = semi-auto, 1 = burstfire, 2 = full-auto

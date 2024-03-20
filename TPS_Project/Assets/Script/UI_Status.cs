@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ public class UI_Status : MonoBehaviour
 
     public GameObject Fire_Mode_UI;
     public GameObject Magazine_UI;
+    public GameObject Full_Magazine_UI;
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +45,9 @@ public class UI_Status : MonoBehaviour
                 }
         }
 
-        Magazine_UI.GetComponent<Text>().text = Player.GetComponent<Gun>().Magazine.ToString();
+        Magazine_UI.GetComponent<TextMeshProUGUI>().text = string.Format("{0:D2}", Player.GetComponent<Gun>().Magazine);
+
+        Full_Magazine_UI.GetComponent<TextMeshProUGUI>().text = string.Format("{0:D2}", Player.GetComponent<Gun>().Full_Magazine);
 
     }
 }
