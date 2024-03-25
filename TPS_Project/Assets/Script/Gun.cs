@@ -8,6 +8,8 @@ public class Gun : MonoBehaviour
     public GameObject BulletPrefab;
     public GameObject Camera;
     public GameObject UI_Status;
+    public GameObject CartridgePrefab;
+    public GameObject CartridgeOut;
 
     public int Full_Magazine = 61;
     public int Magazine = 0;
@@ -106,6 +108,8 @@ public class Gun : MonoBehaviour
         if (this.gameObject.GetComponent<Player>().Zoom_Check == true && Input.GetMouseButtonDown(0) && Magazine != 0)
         {
             Instantiate(BulletPrefab, Camera.transform.position, Camera.transform.rotation);
+            Instantiate(CartridgePrefab, CartridgeOut.transform.position,
+                Quaternion.Euler(new Vector3(CartridgeOut.transform.rotation.eulerAngles.x + 90.0f, this.transform.rotation.eulerAngles.y, CartridgeOut.transform.rotation.eulerAngles.z))); //ÅºÇÇ
             Magazine -= 1;
             Debug.Log(Magazine);
             Increase_Recoil();
@@ -133,6 +137,8 @@ public class Gun : MonoBehaviour
                 if (Magazine != 0 && Burst_Count < 3)
                 {
                     Instantiate(BulletPrefab, Camera.transform.position, Camera.transform.rotation);
+                    Instantiate(CartridgePrefab, CartridgeOut.transform.position,
+                        Quaternion.Euler(new Vector3(CartridgeOut.transform.rotation.eulerAngles.x + 90.0f, this.transform.rotation.eulerAngles.y, CartridgeOut.transform.rotation.eulerAngles.z))); //ÅºÇÇ
                     Magazine -= 1;
                     Debug.Log(Magazine);
                     Burst_Count += 1;
@@ -158,6 +164,8 @@ public class Gun : MonoBehaviour
         if (this.gameObject.GetComponent<Player>().Zoom_Check == true && Input.GetMouseButton(0) && Magazine != 0 && Auto_Check == false)
         {
             Instantiate(BulletPrefab, Camera.transform.position, Camera.transform.rotation);
+            Instantiate(CartridgePrefab, CartridgeOut.transform.position,
+                Quaternion.Euler(new Vector3(CartridgeOut.transform.rotation.eulerAngles.x + 90.0f, this.transform.rotation.eulerAngles.y, CartridgeOut.transform.rotation.eulerAngles.z))); //ÅºÇÇ
             Magazine -= 1;
             Debug.Log(Magazine);
             Auto_Check = true;
