@@ -8,9 +8,12 @@ public class UI_Status : MonoBehaviour
 {
     public GameObject Player;
 
-    public GameObject Fire_Mode_UI;
     public GameObject Magazine_UI;
     public GameObject Full_Magazine_UI;
+
+    public GameObject FullAuto;
+    public GameObject BurstFire;
+    public GameObject SemiAuto;
 
     // Start is called before the first frame update
     void Start()
@@ -30,17 +33,23 @@ public class UI_Status : MonoBehaviour
         {
             case 0:
                 {
-                    Fire_Mode_UI.GetComponent<Text>().text = "단발";
+                    SemiAuto.SetActive(true);
+                    BurstFire.SetActive(false);
+                    FullAuto.SetActive(false);
                     break;
                 }
             case 1:
                 {
-                    Fire_Mode_UI.GetComponent<Text>().text = "점사";
+                    SemiAuto.SetActive(false);
+                    BurstFire.SetActive(true);
+                    FullAuto.SetActive(false);
                     break;
                 }
             case 2:
                 {
-                    Fire_Mode_UI.GetComponent<Text>().text = "연사";
+                    SemiAuto.SetActive(false);
+                    BurstFire.SetActive(false);
+                    FullAuto.SetActive(true);
                     break;
                 }
         }
