@@ -39,9 +39,12 @@ public class Gun : MonoBehaviour
     private float Recoil_Timer = 0.0f;
     private float Recoil_Timer_Limit = 0.005f;
 
+    Animator animator;
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponentInChildren<Animator>();
+
         Timer = 0.0f;
         Magazine = Full_Magazine;
         Recoil = Vector3.zero;
@@ -110,6 +113,7 @@ public class Gun : MonoBehaviour
             Instantiate(BulletPrefab, Camera.transform.position, Camera.transform.rotation);
             Instantiate(CartridgePrefab, CartridgeOut.transform.position,
                 Quaternion.Euler(new Vector3(CartridgeOut.transform.rotation.eulerAngles.x + 90.0f, this.transform.rotation.eulerAngles.y, CartridgeOut.transform.rotation.eulerAngles.z))); //ÅºÇÇ
+            animator.SetBool("Shooting", true);
             Magazine -= 1;
             Debug.Log(Magazine);
             Increase_Recoil();
@@ -139,6 +143,7 @@ public class Gun : MonoBehaviour
                     Instantiate(BulletPrefab, Camera.transform.position, Camera.transform.rotation);
                     Instantiate(CartridgePrefab, CartridgeOut.transform.position,
                         Quaternion.Euler(new Vector3(CartridgeOut.transform.rotation.eulerAngles.x + 90.0f, this.transform.rotation.eulerAngles.y, CartridgeOut.transform.rotation.eulerAngles.z))); //ÅºÇÇ
+                    animator.SetBool("Shooting", true);
                     Magazine -= 1;
                     Debug.Log(Magazine);
                     Burst_Count += 1;
@@ -166,6 +171,7 @@ public class Gun : MonoBehaviour
             Instantiate(BulletPrefab, Camera.transform.position, Camera.transform.rotation);
             Instantiate(CartridgePrefab, CartridgeOut.transform.position,
                 Quaternion.Euler(new Vector3(CartridgeOut.transform.rotation.eulerAngles.x + 90.0f, this.transform.rotation.eulerAngles.y, CartridgeOut.transform.rotation.eulerAngles.z))); //ÅºÇÇ
+            animator.SetBool("Shooting", true);
             Magazine -= 1;
             Debug.Log(Magazine);
             Auto_Check = true;
@@ -207,6 +213,11 @@ public class Gun : MonoBehaviour
         if (Fire_Check == true)
         {
             Fire_Timer += Time.deltaTime;
+        }
+
+        if (Fire_Timer >= 0.01f) //¾Ö´Ï¸ÞÀÌÅÍ
+        {
+            animator.SetBool("Shooting", false);
         }
 
         if (Fire_Timer >= Fire_Timer_Limit)

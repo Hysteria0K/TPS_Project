@@ -16,11 +16,14 @@ public class Player : MonoBehaviour
     public Quaternion Cam_direction;
 
     public bool Zoom_Check = false;
+
+    Animator animator;
     // Start is called before the first frame update
     void Start()
     {
         characterController= GetComponent<CharacterController>();
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ignore Raycast"));
+        animator = GetComponentInChildren<Animator>();
 
     }
 
@@ -28,6 +31,15 @@ public class Player : MonoBehaviour
     void Update()
     {
         Player_Position = this.transform.position;
+
+        if (Zoom_Check == true)
+        {
+            animator.SetBool("Aim", true);
+        }
+        else
+        {
+            animator.SetBool("Aim", false);
+        }
     }
 
     void FixedUpdate()
@@ -55,5 +67,6 @@ public class Player : MonoBehaviour
             characterController.Move(new Vector3(direction.x, 0.0f, direction.z) * Player_Zoom_Speed * Time.deltaTime);
         }
 
+        animator.SetFloat("Speed", characterController.velocity.magnitude);
     }
 }
