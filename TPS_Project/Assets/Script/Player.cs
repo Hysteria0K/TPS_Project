@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         characterController= GetComponent<CharacterController>();
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ignore Raycast"));
 
     }
 

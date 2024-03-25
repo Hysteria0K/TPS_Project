@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 886791309479902136}
   - component: {fileID: 886791309479902132}
   - component: {fileID: 4035410261910209999}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cartridge case
   m_TagString: Untagged
   m_Icon: {fileID: 0}
