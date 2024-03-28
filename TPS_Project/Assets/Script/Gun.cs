@@ -39,6 +39,11 @@ public class Gun : MonoBehaviour
     private float Recoil_Timer = 0.0f;
     private float Recoil_Timer_Limit = 0.005f;
 
+    private float Reload_Timer = 0.0f;
+    private float Reload_Timer_Limit = 2.0f;
+    private float Reload_Timer_Tactical = 1.0f;
+    private bool Reload_Check = false;
+
     Animator animator;
     // Start is called before the first frame update
     void Start()
@@ -99,10 +104,39 @@ public class Gun : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R) && Magazine != Full_Magazine)
         {
-            if (Magazine == 0) Magazine = Full_Magazine - 1;
-            else Magazine = Full_Magazine;
-            //재장전 시간 격차 삽입 필요
-            UI_Status.GetComponent<UI_Status>().UI_Update();
+            Reload_Check = true;
+            animator.SetBool("Reloading", true);
+            Fire_Ready = false;
+        }
+
+        if (Reload_Check == true)
+        {
+            Reload_Timer += Time.deltaTime;
+
+            if (Magazine == 0)
+            {
+                if (Reload_Timer > Reload_Timer_Limit)
+                {
+                    Magazine = Full_Magazine - 1;
+                    Reload_Check = false;
+                    animator.SetBool("Reloading", false);
+                    UI_Status.GetComponent<UI_Status>().UI_Update();
+                    Fire_Ready = true;
+                    Reload_Timer = 0.0f;
+                }
+            }
+            else
+            {
+                if (Reload_Timer > Reload_Timer_Tactical)
+                {
+                    Magazine = Full_Magazine;
+                    Reload_Check = false;
+                    animator.SetBool("Reloading", false);
+                    UI_Status.GetComponent<UI_Status>().UI_Update();
+                    Fire_Ready = true;
+                    Reload_Timer = 0.0f;
+                }
+            }
         }
     }
 
