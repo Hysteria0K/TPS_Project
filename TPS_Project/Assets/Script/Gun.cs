@@ -10,6 +10,7 @@ public class Gun : MonoBehaviour
     public GameObject UI_Status;
     public GameObject CartridgePrefab;
     public GameObject CartridgeOut;
+    public GameObject Reload_Image;
 
     public int Full_Magazine = 61;
     public int Magazine = 0;
@@ -115,6 +116,7 @@ public class Gun : MonoBehaviour
 
             if (Magazine == 0)
             {
+                Reload_Image.GetComponent<Reload>().reload.fillAmount += 1 / Reload_Timer_Limit * Time.deltaTime;
                 if (Reload_Timer > Reload_Timer_Limit)
                 {
                     Magazine = Full_Magazine - 1;
@@ -127,6 +129,7 @@ public class Gun : MonoBehaviour
             }
             else
             {
+                Reload_Image.GetComponent<Reload>().reload.fillAmount += 1 / Reload_Timer_Tactical * Time.deltaTime;
                 if (Reload_Timer > Reload_Timer_Tactical)
                 {
                     Magazine = Full_Magazine;
