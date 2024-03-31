@@ -6,6 +6,7 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     public GameObject BulletPrefab;
+    public GameObject BulletStart;
     public GameObject Camera;
     public GameObject UI_Status;
     public GameObject CartridgePrefab;
@@ -106,12 +107,12 @@ public class Gun : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R) && Magazine != Full_Magazine)
         {
             Reload_Check = true;
-            animator.SetBool("Reloading", true);
-            Fire_Ready = false;
         }
 
         if (Reload_Check == true)
         {
+            animator.SetBool("Reloading", true);
+            Fire_Ready = false;
             Reload_Timer += Time.deltaTime;
 
             if (Magazine == 0)
@@ -147,7 +148,7 @@ public class Gun : MonoBehaviour
     {
         if (this.gameObject.GetComponent<Player>().Zoom_Check == true && Input.GetMouseButtonDown(0) && Magazine != 0)
         {
-            Instantiate(BulletPrefab, Camera.transform.position, Camera.transform.rotation);
+            Instantiate(BulletPrefab, BulletStart.transform.position, BulletStart.transform.rotation);
             Instantiate(CartridgePrefab, CartridgeOut.transform.position,
                 Quaternion.Euler(new Vector3(CartridgeOut.transform.rotation.eulerAngles.x + 90.0f, this.transform.rotation.eulerAngles.y, CartridgeOut.transform.rotation.eulerAngles.z))); //ÅºÇÇ
             animator.SetBool("Shooting", true);
@@ -157,6 +158,10 @@ public class Gun : MonoBehaviour
             Fire_Check = true;
             Fire_Timer = 0.0f;
             UI_Status.GetComponent<UI_Status>().UI_Update();
+        }
+        else if (this.gameObject.GetComponent<Player>().Zoom_Check == true && Input.GetMouseButtonDown(0) && Magazine == 0)
+        {
+            Reload_Check = true;
         }
     }
 
@@ -169,6 +174,11 @@ public class Gun : MonoBehaviour
             Debug.Log("Burst!");
         }
 
+        else if (this.gameObject.GetComponent<Player>().Zoom_Check == true && Input.GetMouseButtonDown(0) && Magazine == 0 && Burst_Check == false)
+        {
+            Reload_Check = true;
+        }
+
         if (Burst_Check == true)
         {
             Timer += Time.deltaTime;
@@ -177,7 +187,7 @@ public class Gun : MonoBehaviour
             {
                 if (Magazine != 0 && Burst_Count < 3)
                 {
-                    Instantiate(BulletPrefab, Camera.transform.position, Camera.transform.rotation);
+                    Instantiate(BulletPrefab, BulletStart.transform.position, BulletStart.transform.rotation);
                     Instantiate(CartridgePrefab, CartridgeOut.transform.position,
                         Quaternion.Euler(new Vector3(CartridgeOut.transform.rotation.eulerAngles.x + 90.0f, this.transform.rotation.eulerAngles.y, CartridgeOut.transform.rotation.eulerAngles.z))); //ÅºÇÇ
                     animator.SetBool("Shooting", true);
@@ -205,7 +215,7 @@ public class Gun : MonoBehaviour
     {
         if (this.gameObject.GetComponent<Player>().Zoom_Check == true && Input.GetMouseButton(0) && Magazine != 0 && Auto_Check == false)
         {
-            Instantiate(BulletPrefab, Camera.transform.position, Camera.transform.rotation);
+            Instantiate(BulletPrefab, BulletStart.transform.position, BulletStart.transform.rotation);
             Instantiate(CartridgePrefab, CartridgeOut.transform.position,
                 Quaternion.Euler(new Vector3(CartridgeOut.transform.rotation.eulerAngles.x + 90.0f, this.transform.rotation.eulerAngles.y, CartridgeOut.transform.rotation.eulerAngles.z))); //ÅºÇÇ
             animator.SetBool("Shooting", true);
@@ -216,6 +226,11 @@ public class Gun : MonoBehaviour
             Fire_Check = true;
             Fire_Timer = 0.0f;
             UI_Status.GetComponent<UI_Status>().UI_Update();
+        }
+
+        else if (this.gameObject.GetComponent<Player>().Zoom_Check == true && Input.GetMouseButton(0) && Magazine == 0 && Auto_Check == false)
+        {
+            Reload_Check = true;
         }
 
         if (Auto_Check == true)
