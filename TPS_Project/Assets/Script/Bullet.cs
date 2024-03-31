@@ -11,12 +11,16 @@ public class Bullet : MonoBehaviour
 
     private float Timer = 0.0f;
 
+    private int Damage = 100;
+
     // Start is called before the first frame update
     void Start()
     {
         GetComponent<Rigidbody>().AddForce(transform.forward * Bullet_Speed, ForceMode.Impulse);
 
         Timer = 0.0f;
+
+        Damage += Random.Range(0, 5);
     }
 
     // Update is called once per frame
@@ -36,6 +40,12 @@ public class Bullet : MonoBehaviour
         {
             Destroy(this.gameObject);
             Debug.Log("Hit");
+        }
+
+        if (other.tag == "Enemy")
+        {
+            other.GetComponent<Test_Enemy>().Hp -= Damage;
+            Destroy(this.gameObject);
         }
     }
 }
