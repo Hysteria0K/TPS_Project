@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
     public float Player_Zoom_Speed = 1.5f;
     public float rotationSpeed = 360f;
 
+    private float gravity = 15.0f;
+
     public Vector3 direction;
     public Vector3 Player_Position;
 
@@ -18,6 +20,8 @@ public class Player : MonoBehaviour
     public bool Zoom_Check = false;
 
     Animator animator;
+
+    public bool isg;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +43,16 @@ public class Player : MonoBehaviour
         else
         {
             animator.SetBool("Aim", false);
+        }
+
+        if (characterController.detectCollisions == true)
+        {
+            isg = true;
+        }
+
+        else
+        {
+            isg = false;
         }
     }
 
@@ -69,4 +83,7 @@ public class Player : MonoBehaviour
 
         animator.SetFloat("Speed", characterController.velocity.magnitude);
     }
+
+
 }
+
