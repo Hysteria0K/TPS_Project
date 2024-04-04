@@ -15,7 +15,6 @@ public class Bullet : MonoBehaviour
     private int Damage = 100;
 
     public GameObject DamageTextPrefab;
-    public GameObject DamageSaverPrefab;
 
     private GameObject Canvas;
 

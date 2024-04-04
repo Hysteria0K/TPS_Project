@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
     public float Player_Zoom_Speed = 1.5f;
     public float rotationSpeed = 360f;
 
-    private float gravity = 15.0f;
+    private float gravity = -8.0f;
 
     public Vector3 direction;
     public Vector3 Player_Position;
@@ -21,12 +21,10 @@ public class Player : MonoBehaviour
 
     Animator animator;
 
-    public bool isg;
     // Start is called before the first frame update
     void Start()
     {
         characterController= GetComponent<CharacterController>();
-        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Ignore Raycast"));
         animator = GetComponentInChildren<Animator>();
 
     }
@@ -43,16 +41,6 @@ public class Player : MonoBehaviour
         else
         {
             animator.SetBool("Aim", false);
-        }
-
-        if (characterController.detectCollisions == true)
-        {
-            isg = true;
-        }
-
-        else
-        {
-            isg = false;
         }
     }
 
@@ -73,12 +61,12 @@ public class Player : MonoBehaviour
                 this.transform.rotation = Quaternion.Euler(0.0f, transform.eulerAngles.y, transform.eulerAngles.z);
             }
 
-            characterController.Move(new Vector3(direction.x, 0.0f, direction.z) * Player_Speed * Time.deltaTime);
+            characterController.Move(new Vector3(direction.x, gravity / Player_Speed, direction.z) * Player_Speed * Time.deltaTime);
         }
 
         else
         {
-            characterController.Move(new Vector3(direction.x, 0.0f, direction.z) * Player_Zoom_Speed * Time.deltaTime);
+            characterController.Move(new Vector3(direction.x, gravity / Player_Zoom_Speed, direction.z) * Player_Zoom_Speed * Time.deltaTime);
         }
 
         animator.SetFloat("Speed", characterController.velocity.magnitude);
