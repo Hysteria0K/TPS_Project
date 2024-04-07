@@ -16,7 +16,7 @@ public class Camera : MonoBehaviour
 
     public float Angle_X = 2.81f;
     public float Angle_Y = 0.0f;
-    public float Y_Maximum = 5.0f;
+    public float Y_Maximum = 15.0f;
     public float Y_Minimum = -15.0f;
 
     private float float_angle;
@@ -47,7 +47,6 @@ public class Camera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         if (Input.GetMouseButtonDown(1) && Player.GetComponent<Player>().Zoom_Check == false)
         {
             Player.GetComponent<Player>().Zoom_Check = true;
@@ -72,9 +71,15 @@ public class Camera : MonoBehaviour
         {
             Angle_Y += 0.2f;
         }
+
         else if (Angle_Y > Y_Maximum)
         {
             Angle_Y = Y_Maximum;
+        }
+
+        if (Angle_Y < -30.0f)
+        {
+            Angle_Y = -30.0f;
         }
 
         Recoil_Control();
@@ -93,7 +98,10 @@ public class Camera : MonoBehaviour
 
         Angle_X += rotation_X * Time.deltaTime; // 앵글 = 파이값, 마우스 움직이는거에 넣으면 될듯
 
-        Angle_Y -= rotation_Y * Time.deltaTime;
+        if (Angle_Y < Y_Maximum || rotation_Y > 0)
+        {
+            Angle_Y -= rotation_Y * Time.deltaTime;
+        }
 
         if (Angle_X < 0) Angle_X += 2*Mathf.PI;
         else if (Angle_X > 2*Mathf.PI) Angle_X -= 2*Mathf.PI;
@@ -123,6 +131,14 @@ public class Camera : MonoBehaviour
                 Player.GetComponent<Transform>().rotation = this.transform.rotation;
             }
         }
+
+        if (Angle_Y >= 5 && Player.GetComponent<Player>().Zoom_Check == true)
+        {
+            Camera_Y_Set = 1.7f + (Angle_Y - 5) * 0.025f;
+            radius = 1.5f - (Angle_Y - 5) * 0.08f;
+            Camera_Correction = 141.0828f - (Angle_Y - 5) * 0.4f;
+        }
+
     }
         
     IEnumerator Zoom_In()
