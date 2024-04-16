@@ -46,6 +46,11 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        Move();
+    }
+
+    private void Move()
+    {
         Cam_direction = Camera.GetComponent<Transform>().rotation;
 
         direction = Cam_direction * new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
@@ -71,7 +76,5 @@ public class Player : MonoBehaviour
 
         animator.SetFloat("Speed", characterController.velocity.magnitude);
     }
-
-
 }
 

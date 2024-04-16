@@ -148,16 +148,7 @@ public class Gun : MonoBehaviour
     {
         if (this.gameObject.GetComponent<Player>().Zoom_Check == true && Input.GetMouseButtonDown(0) && Magazine != 0)
         {
-            Instantiate(BulletPrefab, BulletStart.transform.position, BulletStart.transform.rotation);
-            Instantiate(CartridgePrefab, CartridgeOut.transform.position,
-                Quaternion.Euler(new Vector3(CartridgeOut.transform.rotation.eulerAngles.x + 90.0f, this.transform.rotation.eulerAngles.y, CartridgeOut.transform.rotation.eulerAngles.z))); //ÅºÇÇ
-            animator.SetBool("Shooting", true);
-            Magazine -= 1;
-            Debug.Log(Magazine);
-            Increase_Recoil();
-            Fire_Check = true;
-            Fire_Timer = 0.0f;
-            UI_Status.GetComponent<UI_Status>().UI_Update();
+            Fire();
         }
         else if (this.gameObject.GetComponent<Player>().Zoom_Check == true && Input.GetMouseButtonDown(0) && Magazine == 0)
         {
@@ -187,19 +178,10 @@ public class Gun : MonoBehaviour
             {
                 if (Magazine != 0 && Burst_Count < 3)
                 {
-                    Instantiate(BulletPrefab, BulletStart.transform.position, BulletStart.transform.rotation);
-                    Instantiate(CartridgePrefab, CartridgeOut.transform.position,
-                        Quaternion.Euler(new Vector3(CartridgeOut.transform.rotation.eulerAngles.x + 90.0f, this.transform.rotation.eulerAngles.y, CartridgeOut.transform.rotation.eulerAngles.z))); //ÅºÇÇ
-                    animator.SetBool("Shooting", true);
-                    Magazine -= 1;
-                    Debug.Log(Magazine);
+                    Fire();
                     Burst_Count += 1;
-                    Increase_Recoil();
-                    Fire_Check = true;
-                    Fire_Timer = 0.0f;
-                    UI_Status.GetComponent<UI_Status>().UI_Update();
+                    Timer = 0.0f;
                 }
-                Timer = 0.0f;
             }
 
             if (Burst_Count >= 3 || Magazine == 0)
@@ -215,17 +197,8 @@ public class Gun : MonoBehaviour
     {
         if (this.gameObject.GetComponent<Player>().Zoom_Check == true && Input.GetMouseButton(0) && Magazine != 0 && Auto_Check == false)
         {
-            Instantiate(BulletPrefab, BulletStart.transform.position, BulletStart.transform.rotation);
-            Instantiate(CartridgePrefab, CartridgeOut.transform.position,
-                Quaternion.Euler(new Vector3(CartridgeOut.transform.rotation.eulerAngles.x + 90.0f, this.transform.rotation.eulerAngles.y, CartridgeOut.transform.rotation.eulerAngles.z))); //ÅºÇÇ
-            animator.SetBool("Shooting", true);
-            Magazine -= 1;
-            Debug.Log(Magazine);
+            Fire();
             Auto_Check = true;
-            Increase_Recoil();
-            Fire_Check = true;
-            Fire_Timer = 0.0f;
-            UI_Status.GetComponent<UI_Status>().UI_Update();
         }
 
         else if (this.gameObject.GetComponent<Player>().Zoom_Check == true && Input.GetMouseButton(0) && Magazine == 0 && Auto_Check == false)
@@ -315,4 +288,20 @@ public class Gun : MonoBehaviour
             Camera.GetComponent<Camera>().Stacked_AfterFire_Y = 0.0f;
         }
     }
+
+    private void Fire()
+
+    {
+        Instantiate(BulletPrefab, BulletStart.transform.position, BulletStart.transform.rotation);
+        Instantiate(CartridgePrefab, CartridgeOut.transform.position,
+            Quaternion.Euler(new Vector3(CartridgeOut.transform.rotation.eulerAngles.x + 90.0f, this.transform.rotation.eulerAngles.y, CartridgeOut.transform.rotation.eulerAngles.z))); //ÅºÇÇ
+        animator.SetBool("Shooting", true);
+        Magazine -= 1;
+        Debug.Log(Magazine);
+        Increase_Recoil();
+        Fire_Check = true;
+        Fire_Timer = 0.0f;
+        UI_Status.GetComponent<UI_Status>().UI_Update();
+    }
+
 }

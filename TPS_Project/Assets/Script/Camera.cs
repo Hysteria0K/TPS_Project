@@ -12,7 +12,7 @@ public class Camera : MonoBehaviour
 
     public Vector3 Camera_Center;
 
-    public float radius = 2.685f;
+    public float Radius = 2.685f;
 
     public float Angle_X = 2.81f;
     public float Angle_Y = 0.0f;
@@ -38,10 +38,14 @@ public class Camera : MonoBehaviour
     private float AfterFire_Y = 0.0f;
     public float Stacked_AfterFire_Y = 0.0f;
 
+    private float Origin_Radius = 2.685f;
+    private float Origin_Camera_Correction = 161.0828f;
+    private float Origin_Camera_Y_Set = 2.05f;
+
     // Start is called before the first frame update
     void Start()
     {
-        AfterFire_Y = 0.0f;
+        Reset();
     }
 
     // Update is called once per frame
@@ -53,18 +57,7 @@ public class Camera : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(1) && Player.GetComponent<Player>().Zoom_Check == true)
         {
-            Player.GetComponent<Player>().Zoom_Check = false;
-
-            Zoom_In_Check = false;
-            Zoom_In_Count = 0;
-            radius = 2.685f;
-            Camera_Correction = 161.0828f;
-            Camera_Y_Set = 2.05f;
-            Angle_X += Angle_X_Correction;
-
-            Player.GetComponent<Gun>().Recoil = Vector3.zero;
-            AfterFire_Y = 0.0f;
-            Player.GetComponent<Transform>().rotation = Quaternion.Euler(new Vector3(0.0f, this.transform.rotation.eulerAngles.y, 0.0f));
+            Reset();
         }
 
         if (Angle_Y < Y_Minimum)
@@ -83,7 +76,9 @@ public class Camera : MonoBehaviour
         }
 
         Recoil_Control();
+
         Zoom();
+
     }
     void FixedUpdate()
     {
@@ -107,7 +102,7 @@ public class Camera : MonoBehaviour
         if (Angle_X < 0) Angle_X += 2*Mathf.PI;
         else if (Angle_X > 2*Mathf.PI) Angle_X -= 2*Mathf.PI;
 
-        this.transform.position = Camera_Center + new Vector3(Mathf.Sin(Angle_X), 0, Mathf.Cos(Angle_X)) * radius;
+        this.transform.position = Camera_Center + new Vector3(Mathf.Sin(Angle_X), 0, Mathf.Cos(Angle_X)) * Radius;
 
         float_angle = Angle_X * 180.0f/Mathf.PI;
 
@@ -134,7 +129,7 @@ public class Camera : MonoBehaviour
         if (Angle_Y >= 5 && Player.GetComponent<Player>().Zoom_Check == true)
         {
             Camera_Y_Set = 1.7f + (Angle_Y - 5) * 0.025f;
-            radius = 1.5f - (Angle_Y - 5) * 0.08f;
+            Radius = 1.5f - (Angle_Y - 5) * 0.08f;
             Camera_Correction = 141.0828f - (Angle_Y - 5) * 0.4f;
         }
 
@@ -145,7 +140,7 @@ public class Camera : MonoBehaviour
         Zoom_In_Count++;
 
         yield return new WaitForSeconds(0.001f);
-        radius -= 0.1185f;
+        Radius -= 0.1185f;
         Camera_Y_Set -= 0.035f;
         Camera_Correction -= 1.7f;
         Angle_X -= Angle_X_Correction / 10;
@@ -172,5 +167,21 @@ public class Camera : MonoBehaviour
             AfterFire_Y = 0.0f;
             Stacked_AfterFire_Y = 0.0f;
         }
+    }
+
+    private void Reset()
+    {
+        Player.GetComponent<Player>().Zoom_Check = false;
+
+        Zoom_In_Check = false;
+        Zoom_In_Count = 0;
+        Radius = Origin_Radius;
+        Camera_Correction = Origin_Camera_Correction;
+        Camera_Y_Set = Origin_Camera_Y_Set;
+        Angle_X += Angle_X_Correction;
+
+        Player.GetComponent<Gun>().Recoil = Vector3.zero;
+        AfterFire_Y = 0.0f;
+        Player.GetComponent<Transform>().rotation = Quaternion.Euler(new Vector3(0.0f, this.transform.rotation.eulerAngles.y, 0.0f));
     }
 }
