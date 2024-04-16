@@ -83,6 +83,7 @@ public class Camera : MonoBehaviour
         }
 
         Recoil_Control();
+        Zoom();
     }
     void FixedUpdate()
     {
@@ -111,8 +112,6 @@ public class Camera : MonoBehaviour
         float_angle = Angle_X * 180.0f/Mathf.PI;
 
         this.transform.rotation = Quaternion.Euler(new Vector3(Angle_Y, float_angle - Camera_Correction, 0) + Player.GetComponent<Gun>().Recoil);
-
-        Zoom();
 
     }
 
