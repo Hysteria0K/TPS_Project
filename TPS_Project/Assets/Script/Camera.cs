@@ -178,6 +178,7 @@ public class Camera : MonoBehaviour
         AfterFire_Y = 0.0f;
         Player.GetComponent<Transform>().rotation = Quaternion.Euler(new Vector3(0.0f, this.transform.rotation.eulerAngles.y, 0.0f));
     }
+
     private void Camera_Zoom_Correction()
     {
         if (Angle_Y >= 5 && Player.GetComponent<Player>().Zoom_Check == true)
