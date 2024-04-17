@@ -16,8 +16,8 @@ public class Camera : MonoBehaviour
 
     public float Angle_X = 2.81f;
     public float Angle_Y = 0.0f;
-    public float Y_Maximum = 15.0f;
-    public float Y_Minimum = -15.0f;
+    private float Y_Maximum = 15.0f;
+    private float Y_Minimum = -15.0f;
 
     private float float_angle;
 
@@ -45,7 +45,7 @@ public class Camera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Reset();
+        ResetCamera();
     }
 
     // Update is called once per frame
@@ -57,7 +57,7 @@ public class Camera : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(1) && Player.GetComponent<Player>().Zoom_Check == true)
         {
-            Reset();
+            ResetCamera();
         }
 
         if (Angle_Y < Y_Minimum)
@@ -76,8 +76,6 @@ public class Camera : MonoBehaviour
         }
 
         Recoil_Control();
-
-        Zoom();
 
     }
     void FixedUpdate()
@@ -108,6 +106,10 @@ public class Camera : MonoBehaviour
 
         this.transform.rotation = Quaternion.Euler(new Vector3(Angle_Y, float_angle - Camera_Correction, 0) + Player.GetComponent<Gun>().Recoil);
 
+        Zoom();
+
+        Camera_Zoom_Correction();
+
     }
 
     private void Zoom()
@@ -125,14 +127,6 @@ public class Camera : MonoBehaviour
                 Player.GetComponent<Transform>().rotation = this.transform.rotation;
             }
         }
-
-        if (Angle_Y >= 5 && Player.GetComponent<Player>().Zoom_Check == true)
-        {
-            Camera_Y_Set = 1.7f + (Angle_Y - 5) * 0.025f;
-            Radius = 1.5f - (Angle_Y - 5) * 0.08f;
-            Camera_Correction = 141.0828f - (Angle_Y - 5) * 0.4f;
-        }
-
     }
         
     IEnumerator Zoom_In()
@@ -169,7 +163,7 @@ public class Camera : MonoBehaviour
         }
     }
 
-    private void Reset()
+    private void ResetCamera()
     {
         Player.GetComponent<Player>().Zoom_Check = false;
 
@@ -183,5 +177,14 @@ public class Camera : MonoBehaviour
         Player.GetComponent<Gun>().Recoil = Vector3.zero;
         AfterFire_Y = 0.0f;
         Player.GetComponent<Transform>().rotation = Quaternion.Euler(new Vector3(0.0f, this.transform.rotation.eulerAngles.y, 0.0f));
+    }
+    private void Camera_Zoom_Correction()
+    {
+        if (Angle_Y >= 5 && Player.GetComponent<Player>().Zoom_Check == true)
+        {
+            Camera_Y_Set = 1.7f + (Angle_Y - 5) * 0.025f;
+            Radius = 1.5f - (Angle_Y - 5) * 0.08f;
+            Camera_Correction = 141.0828f - (Angle_Y - 5) * 0.4f;
+        }
     }
 }
