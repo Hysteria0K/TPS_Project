@@ -20,18 +20,26 @@ public class Servant : MonoBehaviour
 
     private bool Saved_Check;
 
+    private float animTime;
+
+    private bool Attack_Check;
+
     // Start is called before the first frame update
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
 
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
 
         State = 0;
 
         animator.SetInteger("State", 0);
 
         Saved_Check = false;
+
+        animTime = 0.0f;
+
+        Attack_Check = false;
     }
 
     // Update is called once per frame
@@ -46,17 +54,7 @@ public class Servant : MonoBehaviour
 
         if (State == 1)
         {
-            if (Distance > 1.5)
-            {
-                State = 0;
-
-                animator.SetInteger("State", 0);
-            }
-
-            else
-            {
-                Attack();
-            }
+            Attack();
         }
     }
     private void Check_Distance()
@@ -71,7 +69,7 @@ public class Servant : MonoBehaviour
             navMeshAgent.SetDestination(Player_Pos.position);
         }
 
-        if (Distance < 5 && Saved_Check == false)
+        if (Distance < 3 && Saved_Check == false)
         {
             Saved_Pos = Player_Pos.position;
             Saved_Check = true;
@@ -87,17 +85,48 @@ public class Servant : MonoBehaviour
             }
         }
 
-        if (Distance <= 1.5)
+        if (Distance < 3.0f)
         {
-            State = 1;
-
             animator.SetInteger("State", 1);
+
+            State = 1;
         }
     }
 
     private void Attack()
     {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Basic Attack 0") == true)
+        {
+            animTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
 
+            Debug.Log(animTime - Mathf.Floor(animTime));
+
+            if (animTime - Mathf.Floor(animTime) > 0.5f && animTime - Mathf.Floor(animTime) < 0.6f)
+            {
+                if (Attack_Check == false)
+                {
+                    Attack_Check = true;
+                    Debug.Log("°ø°ÝÁß");
+                }
+            }
+
+            else
+            {
+                Attack_Check = false;
+            }
+
+            if (animTime - Mathf.Floor(animTime) > 0.9f && animTime - Mathf.Floor(animTime) < 1.0f)
+            {
+                if (Distance > 3.0f)
+                {
+                    animator.SetInteger("State", 0);
+
+                    Attack_Check = false;
+
+                    State = 0;
+                }
+            }
+        }
     }
 
 }
