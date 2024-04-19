@@ -24,12 +24,15 @@ public class Servant : MonoBehaviour
 
     private bool Attack_Check;
 
+    new Rigidbody rigidbody;
     // Start is called before the first frame update
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
 
         animator = GetComponentInChildren<Animator>();
+
+        rigidbody = GetComponent<Rigidbody>();
 
         State = 0;
 
@@ -45,6 +48,9 @@ public class Servant : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        rigidbody.velocity = Vector3.zero;
+        rigidbody.angularVelocity = Vector3.zero;
+
         Check_Distance();
 
         if (State == 0)
@@ -79,13 +85,13 @@ public class Servant : MonoBehaviour
         {
             navMeshAgent.SetDestination(Saved_Pos);
 
-            if (Vector3.Distance(Saved_Pos, Player_Pos.position) >= 3)
+            if (Vector3.Distance(Saved_Pos, Player_Pos.position) >= 1.5)
             {
                 Saved_Check = false;
             }
         }
 
-        if (Distance < 3.0f)
+        if (Distance <= 3.0f)
         {
             animator.SetInteger("State", 1);
 
@@ -95,35 +101,35 @@ public class Servant : MonoBehaviour
 
     private void Attack()
     {
+        transform.LookAt(Player_Pos);
+
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Basic Attack 0") == true)
         {
             animTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-
-            Debug.Log(animTime - Mathf.Floor(animTime));
 
             if (animTime - Mathf.Floor(animTime) > 0.5f && animTime - Mathf.Floor(animTime) < 0.6f)
             {
                 if (Attack_Check == false)
                 {
                     Attack_Check = true;
-                    Debug.Log("°ø°ÝÁß");
+                    Debug.Log("ê³µê²©ì¤‘");
                 }
-            }
-
-            else
-            {
-                Attack_Check = false;
             }
 
             if (animTime - Mathf.Floor(animTime) > 0.9f && animTime - Mathf.Floor(animTime) < 1.0f)
             {
-                if (Distance > 3.0f)
+                if (Vector3.Distance(Saved_Pos, Player_Pos.position) >= 1.5)
                 {
                     animator.SetInteger("State", 0);
 
                     Attack_Check = false;
 
                     State = 0;
+                }
+
+                if (Attack_Check == true)
+                {
+                    Attack_Check = false;
                 }
             }
         }
