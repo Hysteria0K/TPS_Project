@@ -15,9 +15,20 @@ public class UI_Status : MonoBehaviour
     public GameObject BurstFire;
     public GameObject SemiAuto;
 
+    TextMeshProUGUI Magazine_UI_T;
+    TextMeshProUGUI Full_Magazine_UI_T;
+
+    Gun gun;
+
     // Start is called before the first frame update
     void Start()
     {
+        Magazine_UI_T = Magazine_UI.GetComponent<TextMeshProUGUI>();
+        Full_Magazine_UI_T = Full_Magazine_UI.GetComponent<TextMeshProUGUI>();
+
+        gun = Player.GetComponent<Gun>();
+
+
         UI_Update();
     }
 
@@ -29,7 +40,7 @@ public class UI_Status : MonoBehaviour
 
     public void UI_Update()
     {
-        switch (Player.GetComponent<Gun>().Fire_Mode)
+        switch (gun.Fire_Mode)
         {
             case 0:
                 {
@@ -54,9 +65,9 @@ public class UI_Status : MonoBehaviour
                 }
         }
 
-        Magazine_UI.GetComponent<TextMeshProUGUI>().text = string.Format("{0:D2}", Player.GetComponent<Gun>().Magazine);
+        Magazine_UI_T.text = string.Format("{0:D2}", gun.Magazine);
 
-        Full_Magazine_UI.GetComponent<TextMeshProUGUI>().text = string.Format("{0:D2}", Player.GetComponent<Gun>().Full_Magazine);
+        Full_Magazine_UI_T.text = string.Format("{0:D2}", gun.Full_Magazine);
 
     }
 }

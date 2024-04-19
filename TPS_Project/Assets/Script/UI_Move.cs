@@ -14,11 +14,20 @@ public class UI_Move : MonoBehaviour
     public float Camera_Rotate_X;
 
     public int Position_Move;
+
+    Transform cm_transform;
+
+    Player player;
+
     // Start is called before the first frame update
     void Start()
     {
         Rotate_Y = 10;
         Position_Move = 300;
+
+        cm_transform = Camera.GetComponent<Transform>();
+
+        player = Player.GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -34,13 +43,13 @@ public class UI_Move : MonoBehaviour
 
     private void Rotate()
     {
-        if (Camera.GetComponent<Transform>().rotation.x > 0)
+        if (cm_transform.rotation.x > 0)
         {
-            Camera_Rotate_X = Camera.GetComponent<Transform>().rotation.eulerAngles.x;
+            Camera_Rotate_X = cm_transform.rotation.eulerAngles.x;
         }
         else
         {
-            Camera_Rotate_X = Camera.GetComponent<Transform>().rotation.eulerAngles.x - 360;
+            Camera_Rotate_X = cm_transform.rotation.eulerAngles.x - 360;
         }
 
         Rotate_X = Camera_Rotate_X + 15;
@@ -50,11 +59,11 @@ public class UI_Move : MonoBehaviour
 
     private void Zoom_Move()
     {
-        if (Player.GetComponent<Player>().Zoom_Check == true && Position_Move > 30)
+        if (player.Zoom_Check == true && Position_Move > 30)
         {
             StartCoroutine(Zoom_In());
         }
-        else if (Player.GetComponent<Player>().Zoom_Check != true && Position_Move < 270)
+        else if (player.Zoom_Check != true && Position_Move < 270)
         {
             StartCoroutine(Zoom_Out());
         }

@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float Player_Speed = 10.0f;
-    public float Player_Zoom_Speed = 1.5f;
-    public float rotationSpeed = 360f;
+    private float Player_Speed = 10.0f;
+    private float Player_Zoom_Speed = 1.5f;
+    private float rotationSpeed = 360f;
 
     private float gravity = -8.0f;
 
