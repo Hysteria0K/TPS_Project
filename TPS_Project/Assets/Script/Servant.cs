@@ -10,6 +10,8 @@ public class Servant : MonoBehaviour
 
     private NavMeshAgent navMeshAgent;
 
+    Animator animator;
+
     private int State;
 
     private float Distance;
@@ -21,9 +23,13 @@ public class Servant : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        navMeshAgent = GetComponent<NavMeshAgent>();
+
+        animator = GetComponent<Animator>();
+
         State = 0;
 
-        navMeshAgent = GetComponent<NavMeshAgent>();
+        animator.SetInteger("State", 0);
 
         Saved_Check = false;
     }
@@ -43,8 +49,19 @@ public class Servant : MonoBehaviour
             if (Distance > 1.5)
             {
                 State = 0;
+
+                animator.SetInteger("State", 0);
+            }
+
+            else
+            {
+                Attack();
             }
         }
+    }
+    private void Check_Distance()
+    {
+        Distance = Vector3.Distance(this.transform.position, Player_Pos.position);
     }
 
     private void Move()
@@ -63,11 +80,8 @@ public class Servant : MonoBehaviour
         if (Saved_Check == true)
         {
             navMeshAgent.SetDestination(Saved_Pos);
-        }
 
-        if (Saved_Check == true)
-        {
-            if (Vector3.Distance(Saved_Pos, Player_Pos.position) >= 3.5)
+            if (Vector3.Distance(Saved_Pos, Player_Pos.position) >= 3)
             {
                 Saved_Check = false;
             }
@@ -76,11 +90,14 @@ public class Servant : MonoBehaviour
         if (Distance <= 1.5)
         {
             State = 1;
+
+            animator.SetInteger("State", 1);
         }
     }
 
-    private void Check_Distance()
+    private void Attack()
     {
-        Distance = Vector3.Distance(this.transform.position, Player_Pos.position);
+
     }
+
 }
