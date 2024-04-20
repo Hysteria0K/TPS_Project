@@ -7,7 +7,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Servant : MonoBehaviour
 {
-    public Transform Player_Pos;
+    private Transform Player_Pos;
 
     private NavMeshAgent navMeshAgent;
 
@@ -33,6 +33,10 @@ public class Servant : MonoBehaviour
 
     public GameObject Servant_Hp_Bar;
     // Start is called before the first frame update
+    private void Awake()
+    {
+        Player_Pos = GameObject.Find("Player").GetComponent<Transform>();
+    }
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
