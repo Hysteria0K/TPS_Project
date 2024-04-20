@@ -255,16 +255,16 @@ public class Gun : MonoBehaviour
         {
             if (Max_Recoil_x == 0.0f || Max_Recoil_x > Recoil.x) Max_Recoil_x = Recoil.x;
 
-            if (Recoil.x > Camera.GetComponent<Camera>().Stacked_AfterFire_Y)
+            if (Recoil.x > Camera.GetComponent<MainCamera>().Stacked_AfterFire_Y)
             {
-                Camera.GetComponent<Camera>().Angle_Y += Recoil.x;
+                Camera.GetComponent<MainCamera>().Angle_Y += Recoil.x;
                 Recoil_Timer = 0.0f;
                 Recoil.x = 0.0f;
             }
 
             else
             {
-                Calculated_Recoil_X = Max_Recoil_x - Camera.GetComponent<Camera>().Stacked_AfterFire_Y;
+                Calculated_Recoil_X = Max_Recoil_x - Camera.GetComponent<MainCamera>().Stacked_AfterFire_Y;
             }
         }
 
@@ -274,7 +274,7 @@ public class Gun : MonoBehaviour
 
             if (Recoil_Timer >= Recoil_Timer_Limit)
             {
-                Camera.GetComponent<Camera>().Angle_Y = Camera.GetComponent<Camera>().Angle_Y - Calculated_Recoil_X / 100 + Max_Recoil_x / 100;
+                Camera.GetComponent<MainCamera>().Angle_Y = Camera.GetComponent<MainCamera>().Angle_Y - Calculated_Recoil_X / 100 + Max_Recoil_x / 100;
                 Recoil.x -= Max_Recoil_x / 100;
                 Recoil_Timer = 0.0f;
             }
@@ -285,7 +285,7 @@ public class Gun : MonoBehaviour
             Recoil.x = 0.0f;
             Max_Recoil_x = 0.0f;
             Calculated_Recoil_X = 0.0f;
-            Camera.GetComponent<Camera>().Stacked_AfterFire_Y = 0.0f;
+            Camera.GetComponent<MainCamera>().Stacked_AfterFire_Y = 0.0f;
         }
     }
 

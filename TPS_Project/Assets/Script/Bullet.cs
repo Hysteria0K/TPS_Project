@@ -66,5 +66,14 @@ public class Bullet : MonoBehaviour
             Instantiate(DamageTextPrefab, new Vector3(960 + Random.Range(-60, 60), 540 + Random.Range(-30, 30), 10), Quaternion.Euler(0, 0, 0), Canvas.transform);
             Destroy(this.gameObject);
         }
+
+        if (other.CompareTag("Servant"))
+        {
+            other.GetComponent<Servant>().Hp -= Damage;
+            other.GetComponent<Servant>().Servant_Hp_Update();
+            DamageTextPrefab.GetComponent<TextMeshProUGUI>().text = Damage.ToString();
+            Instantiate(DamageTextPrefab, new Vector3(960 + Random.Range(-60, 60), 540 + Random.Range(-30, 30), 10), Quaternion.Euler(0, 0, 0), Canvas.transform);
+            Destroy(this.gameObject);
+        }
     }
 }

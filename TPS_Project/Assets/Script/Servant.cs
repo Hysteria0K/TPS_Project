@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 
 public class Servant : MonoBehaviour
@@ -25,6 +26,12 @@ public class Servant : MonoBehaviour
     private bool Attack_Check;
 
     new Rigidbody rigidbody;
+
+    public int Hp;
+
+    public int Origin_Hp = 1000;
+
+    public GameObject Servant_Hp_Bar;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +50,10 @@ public class Servant : MonoBehaviour
         animTime = 0.0f;
 
         Attack_Check = false;
+
+        Hp = Origin_Hp;
+
+        Servant_Hp_Update();
     }
 
     // Update is called once per frame
@@ -53,6 +64,11 @@ public class Servant : MonoBehaviour
 
         Check_Distance();
 
+        if (Hp <= 0)
+        {
+            State = 2;
+        }
+
         if (State == 0)
         {
             Move();
@@ -61,6 +77,11 @@ public class Servant : MonoBehaviour
         if (State == 1)
         {
             Attack();
+        }
+
+        if (State == 2)
+        {
+            Die();
         }
     }
     private void Check_Distance()
@@ -133,6 +154,19 @@ public class Servant : MonoBehaviour
                 }
             }
         }
+    }
+    private void Die()
+    {
+
+
+
+        Destroy(gameObject);
+
+    }
+
+    public void Servant_Hp_Update()
+    {
+        Servant_Hp_Bar.GetComponent<Image>().fillAmount = (float)Hp / Origin_Hp;
     }
 
 }

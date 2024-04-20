@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Camera : MonoBehaviour
+public class MainCamera : MonoBehaviour
 {
     public GameObject Player;
 
