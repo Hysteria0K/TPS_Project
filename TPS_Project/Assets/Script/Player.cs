@@ -67,7 +67,7 @@ public class Player : MonoBehaviour
 
         if (Player_Hp <= 0)
         {
-            Debug.Log("ÁÖ±Ý");
+            // Á×À½
         }
 
         Heal();
