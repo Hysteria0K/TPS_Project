@@ -46,6 +46,18 @@ public class Servant : MonoBehaviour
     private void Awake()
     {
         Player_Pos = GameObject.Find("Player").GetComponent<Transform>();
+
+        State = 0;
+
+        Saved_Check = false;
+
+        animTime = 0.0f;
+
+        Attack_Check = false;
+
+        Hp = Origin_Hp;
+
+        Servant_Hp_Update();
     }
     void Start()
     {
@@ -57,19 +69,7 @@ public class Servant : MonoBehaviour
 
         capsuleCollider = GetComponent<CapsuleCollider>();
 
-        State = 0;
-
         animator.SetInteger("State", 0);
-
-        Saved_Check = false;
-
-        animTime = 0.0f;
-
-        Attack_Check = false;
-
-        Hp = Origin_Hp;
-
-        Servant_Hp_Update();
     }
 
     // Update is called once per frame

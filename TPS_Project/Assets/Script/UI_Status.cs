@@ -10,6 +10,7 @@ public class UI_Status : MonoBehaviour
 
     public GameObject Magazine_UI;
     public GameObject Full_Magazine_UI;
+    public GameObject HealPack_Count_UI;
 
     public GameObject FullAuto;
     public GameObject BurstFire;
@@ -17,17 +18,22 @@ public class UI_Status : MonoBehaviour
 
     TextMeshProUGUI Magazine_UI_T;
     TextMeshProUGUI Full_Magazine_UI_T;
+    TextMeshProUGUI HealPack_Count_UI_T;
 
     Gun gun;
+
+    Player player;
 
     // Start is called before the first frame update
     void Start()
     {
         Magazine_UI_T = Magazine_UI.GetComponent<TextMeshProUGUI>();
         Full_Magazine_UI_T = Full_Magazine_UI.GetComponent<TextMeshProUGUI>();
+        HealPack_Count_UI_T = HealPack_Count_UI.GetComponent<TextMeshProUGUI>();
 
         gun = Player.GetComponent<Gun>();
 
+        player = Player.GetComponent<Player>();
 
         UI_Update();
     }
@@ -68,6 +74,8 @@ public class UI_Status : MonoBehaviour
         Magazine_UI_T.text = string.Format("{0:D2}", gun.Magazine);
 
         Full_Magazine_UI_T.text = string.Format("{0:D2}", gun.Full_Magazine);
+
+        HealPack_Count_UI_T.text = string.Format("{0:D2}", player.Heal_Pack);
 
     }
 }

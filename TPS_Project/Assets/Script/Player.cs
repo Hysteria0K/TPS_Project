@@ -29,17 +29,22 @@ public class Player : MonoBehaviour
 
     public int Heal_Pack;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        characterController= GetComponent<CharacterController>();
-        animator = GetComponentInChildren<Animator>();
+    public GameObject UI_Status;
 
+    // Start is called before the first frame update
+    private void Awake()
+    {
         Player_Hp = Player_Origin_Hp;
 
         Player_Hp_Update();
 
         Heal_Pack = 5;
+    }
+
+    void Start()
+    {
+        characterController= GetComponent<CharacterController>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -113,11 +118,12 @@ public class Player : MonoBehaviour
     }
     private void Heal()
     {
-        if (Input.GetKeyDown(KeyCode.C) && Heal_Pack > 0)
+        if (Input.GetKeyDown(KeyCode.C) && Heal_Pack > 0 && Player_Hp < Player_Origin_Hp)
         {
             Heal_Pack -= 1;
             Player_Hp += Player_Origin_Hp / 2;
             Player_Hp_Update();
+            UI_Status.GetComponent<UI_Status>().UI_Update();
         }
     }
 }
