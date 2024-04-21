@@ -51,7 +51,7 @@ GameObject:
   - component: {fileID: 3502017234668886013}
   - component: {fileID: 3502017234668886014}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Blocker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2413,6 +2413,7 @@ MonoBehaviour:
   Origin_Hp: 1000
   Servant_Hp_Bar: {fileID: 3502017234800776521}
   Servant_UI: {fileID: 3502017235089068523}
+  Blocker: {fileID: 3502017234668886008}
 --- !u!195 &3502017233596268689
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2549,6 +2550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 458f3c8c7119f30499dc1d9392757694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Servant: {fileID: 0}
 --- !u!1 &3502017235320830493
 GameObject:
   m_ObjectHideFlags: 0

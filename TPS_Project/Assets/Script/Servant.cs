@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -10,6 +12,8 @@ public class Servant : MonoBehaviour
     private Transform Player_Pos;
 
     private NavMeshAgent navMeshAgent;
+
+    private CapsuleCollider capsuleCollider;
 
     Animator animator;
 
@@ -34,6 +38,10 @@ public class Servant : MonoBehaviour
     public GameObject Servant_Hp_Bar;
 
     public GameObject Servant_UI;
+
+    public GameObject Blocker;
+
+    public GameObject Servant_Atk_Range;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -46,6 +54,8 @@ public class Servant : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
 
         rigidbody = GetComponent<Rigidbody>();
+
+        capsuleCollider = GetComponent<CapsuleCollider>();
 
         State = 0;
 
@@ -72,7 +82,9 @@ public class Servant : MonoBehaviour
 
         if (Hp <= 0 && State != 2)
         {
+            capsuleCollider.enabled = false;
             Destroy(Servant_UI);
+            Destroy(Blocker);
             navMeshAgent.isStopped = true;
             animator.SetInteger("State", 2);
             State = 2;
@@ -127,6 +139,11 @@ public class Servant : MonoBehaviour
 
             State = 1;
         }
+
+        if (Servant_Atk_Range.GetComponent<Servant_Atk_Range>().Damage_Check == true)
+        {
+            Servant_Atk_Range.GetComponent<Servant_Atk_Range>().Damage_Check = false;
+        }
     }
 
     private void Attack()
@@ -142,7 +159,6 @@ public class Servant : MonoBehaviour
                 if (Attack_Check == false)
                 {
                     Attack_Check = true;
-                    Debug.Log("공격중");
                 }
             }
 
@@ -160,6 +176,10 @@ public class Servant : MonoBehaviour
                 if (Attack_Check == true)
                 {
                     Attack_Check = false;
+                    if(Servant_Atk_Range.GetComponent<Servant_Atk_Range>().Damage_Check == true)
+                    {
+                        Servant_Atk_Range.GetComponent<Servant_Atk_Range>().Damage_Check = false;
+                    }
                 }
             }
         }
@@ -170,7 +190,7 @@ public class Servant : MonoBehaviour
         {
             animTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
 
-            if (animTime > 1.5f)
+            if (animTime > 1.2f)
             {
                 Destroy(gameObject);
             }

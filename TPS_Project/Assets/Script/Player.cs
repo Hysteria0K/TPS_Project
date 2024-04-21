@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -21,12 +22,24 @@ public class Player : MonoBehaviour
 
     Animator animator;
 
+    public int Player_Origin_Hp = 1000;
+    public int Player_Hp;
+
+    public GameObject Player_Hp_Bar;
+
+    public int Heal_Pack;
+
     // Start is called before the first frame update
     void Start()
     {
         characterController= GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
 
+        Player_Hp = Player_Origin_Hp;
+
+        Player_Hp_Update();
+
+        Heal_Pack = 5;
     }
 
     // Update is called once per frame
@@ -42,6 +55,15 @@ public class Player : MonoBehaviour
         {
             animator.SetBool("Aim", false);
         }
+
+        Player_Hp_Limit();
+
+        if (Player_Hp <= 0)
+        {
+            Debug.Log("аж╠щ");
+        }
+
+        Heal();
     }
 
     void FixedUpdate()
@@ -75,6 +97,28 @@ public class Player : MonoBehaviour
         }
 
         animator.SetFloat("Speed", characterController.velocity.magnitude);
+    }
+
+    public void Player_Hp_Update()
+    {
+        Player_Hp_Bar.GetComponent<Image>().fillAmount = (float)Player_Hp / Player_Origin_Hp;
+    }
+
+    private void Player_Hp_Limit()
+    {
+        if (Player_Hp > Player_Origin_Hp)
+        {
+            Player_Hp = Player_Origin_Hp;
+        }
+    }
+    private void Heal()
+    {
+        if (Input.GetKeyDown(KeyCode.C) && Heal_Pack > 0)
+        {
+            Heal_Pack -= 1;
+            Player_Hp += Player_Origin_Hp / 2;
+            Player_Hp_Update();
+        }
     }
 }
 
