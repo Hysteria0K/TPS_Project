@@ -31,6 +31,8 @@ public class Player : MonoBehaviour
 
     public GameObject UI_Status;
 
+    public GameObject Heal_Particle;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -124,6 +126,7 @@ public class Player : MonoBehaviour
             Player_Hp += Player_Origin_Hp / 2;
             Player_Hp_Update();
             UI_Status.GetComponent<UI_Status>().UI_Update();
+            Instantiate(Heal_Particle, this.gameObject.transform.position, Quaternion.Euler(-90, 0, 0), this.gameObject.transform);
         }
     }
 }

@@ -4528,6 +4528,7 @@ MonoBehaviour:
   Player_Hp_Bar: {fileID: 1264410076}
   Heal_Pack: 0
   UI_Status: {fileID: 27306178}
+  Heal_Particle: {fileID: 201586793944500295, guid: 7e16e2e44195dff43a95b9da27046d90, type: 3}
 --- !u!143 &1988465864
 CharacterController:
   m_ObjectHideFlags: 0
