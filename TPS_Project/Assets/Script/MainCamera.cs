@@ -200,10 +200,10 @@ public class MainCamera : MonoBehaviour
     }
     private void Camera_Collision()
     {
-        if (Physics.Raycast(transform.position, Player_Center.transform.position - transform.position, out hit, Mathf.Infinity, Cam_Collision))
+        if (Physics.Raycast(transform.position, Player_Center.transform.position - transform.position, out hit, 3.0f, Cam_Collision))
         {
             // 교차한 mesh들을 모두 찾음
-            RaycastHit[] hits = Physics.RaycastAll(transform.position, Player_Center.transform.position - transform.position, Mathf.Infinity, Cam_Collision);
+            RaycastHit[] hits = Physics.RaycastAll(transform.position, Player_Center.transform.position - transform.position, 3.0f, Cam_Collision);
 
             // 찾은 mesh들을 투명하게 만듦
             foreach (RaycastHit hitInfo in hits)
@@ -220,7 +220,7 @@ public class MainCamera : MonoBehaviour
                 }
             }
         }
-
+        //ChatGPT 참조함
     }
 
 }
