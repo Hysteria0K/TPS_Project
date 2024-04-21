@@ -8,6 +8,8 @@ public class MainCamera : MonoBehaviour
 {
     public GameObject Player;
 
+    public GameObject Player_Center;
+
     public Vector3 Pl_Pos;
 
     public Vector3 Camera_Center;
@@ -42,10 +44,15 @@ public class MainCamera : MonoBehaviour
     private float Origin_Camera_Correction = 161.0828f;
     private float Origin_Camera_Y_Set = 2.05f;
 
+    public LayerMask Cam_Collision;
+
+    public RaycastHit hit;
+
     // Start is called before the first frame update
     void Start()
     {
         ResetCamera();
+
     }
 
     // Update is called once per frame
@@ -77,6 +84,8 @@ public class MainCamera : MonoBehaviour
 
         Recoil_Control();
 
+        Camera_Collision(); 
+
     }
     void FixedUpdate()
     {
@@ -105,6 +114,7 @@ public class MainCamera : MonoBehaviour
         float_angle = Angle_X * 180.0f/Mathf.PI;
 
         this.transform.rotation = Quaternion.Euler(new Vector3(Angle_Y, float_angle - Camera_Correction, 0) + Player.GetComponent<Gun>().Recoil);
+
 
         Zoom();
 
@@ -188,4 +198,29 @@ public class MainCamera : MonoBehaviour
             Camera_Correction = 141.0828f - (Angle_Y - 5) * 0.4f;
         }
     }
+    private void Camera_Collision()
+    {
+        if (Physics.Raycast(transform.position, Player_Center.transform.position - transform.position, out hit, Mathf.Infinity, Cam_Collision))
+        {
+            // 교차한 mesh들을 모두 찾음
+            RaycastHit[] hits = Physics.RaycastAll(transform.position, Player_Center.transform.position - transform.position, Mathf.Infinity, Cam_Collision);
+
+            // 찾은 mesh들을 투명하게 만듦
+            foreach (RaycastHit hitInfo in hits)
+            {
+                Renderer renderer = hitInfo.collider.GetComponent<Renderer>();
+                Wall_Transparent wall = hitInfo.collider.GetComponent<Wall_Transparent>();
+                if (renderer != null)
+                {
+                    Material material = renderer.material;
+                    Color color = material.color;
+                    color.a = 0.5f; // 투명도 조절
+                    material.color = color;
+                    wall.Trans();
+                }
+            }
+        }
+
+    }
+
 }
