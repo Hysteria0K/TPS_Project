@@ -13,7 +13,7 @@ public class Servant : MonoBehaviour
 
     Animator animator;
 
-    private int State;
+    public int State;
 
     private float Distance;
 
@@ -23,7 +23,7 @@ public class Servant : MonoBehaviour
 
     private float animTime;
 
-    private bool Attack_Check;
+    public bool Attack_Check;
 
     new Rigidbody rigidbody;
 
@@ -32,6 +32,8 @@ public class Servant : MonoBehaviour
     public int Origin_Hp = 1000;
 
     public GameObject Servant_Hp_Bar;
+
+    public GameObject Servant_UI;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -68,8 +70,11 @@ public class Servant : MonoBehaviour
 
         Check_Distance();
 
-        if (Hp <= 0)
+        if (Hp <= 0 && State != 2)
         {
+            Destroy(Servant_UI);
+            navMeshAgent.isStopped = true;
+            animator.SetInteger("State", 2);
             State = 2;
         }
 
@@ -161,11 +166,15 @@ public class Servant : MonoBehaviour
     }
     private void Die()
     {
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Die 0") == true)
+        {
+            animTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
 
-
-
-        Destroy(gameObject);
-
+            if (animTime > 1.5f)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
     public void Servant_Hp_Update()

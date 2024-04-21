@@ -2407,9 +2407,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bbdbb346f1658f4d8979a2ee0b10143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  State: 0
+  Attack_Check: 0
   Hp: 0
   Origin_Hp: 1000
   Servant_Hp_Bar: {fileID: 3502017234800776521}
+  Servant_UI: {fileID: 3502017235089068523}
 --- !u!195 &3502017233596268689
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2444,6 +2447,7 @@ GameObject:
   - component: {fileID: 3502017235089068527}
   - component: {fileID: 3502017235089068520}
   - component: {fileID: 3502017235089068521}
+  - component: {fileID: 1300494587759215960}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -2533,6 +2537,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1300494587759215960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3502017235089068523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 458f3c8c7119f30499dc1d9392757694, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3502017235320830493
 GameObject:
   m_ObjectHideFlags: 0
