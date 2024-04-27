@@ -42,6 +42,8 @@ public class Servant : MonoBehaviour
     public GameObject Blocker;
 
     public GameObject Servant_Atk_Range;
+
+    private bool UI_Active;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -57,7 +59,11 @@ public class Servant : MonoBehaviour
 
         Hp = Origin_Hp;
 
-        Servant_Hp_Update();
+        Servant_UI.SetActive(false);
+
+        UI_Active = false;
+
+
     }
     void Start()
     {
@@ -199,6 +205,12 @@ public class Servant : MonoBehaviour
 
     public void Servant_Hp_Update()
     {
+        if (UI_Active == false)
+        {
+            Servant_UI.SetActive(true);
+            UI_Active = true;
+        }
+
         Servant_Hp_Bar.GetComponent<Image>().fillAmount = (float)Hp / Origin_Hp;
     }
 

@@ -204,7 +204,7 @@ public class MainCamera : MonoBehaviour
             }
         }
 
-        if (Angle_Y < 5 && Cam_Control_Check == true)
+        if (Angle_Y < 5 && Cam_Control_Check == true && Player.GetComponent<Player>().Zoom_Check == true)
         {
             Camera_Y_Set = 1.7f;
             Radius = 1.5f;
