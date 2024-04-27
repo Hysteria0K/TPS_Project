@@ -14,7 +14,7 @@ public class MainCamera : MonoBehaviour
 
     public Vector3 Camera_Center;
 
-    public float Radius = 2.685f;
+    private float Radius = 2.685f;
 
     public float Angle_X = 2.81f;
     public float Angle_Y = 0.0f;
@@ -23,8 +23,8 @@ public class MainCamera : MonoBehaviour
 
     private float float_angle;
 
-    public float Camera_Correction = 161.0828f;
-    public float Camera_Y_Set = 2.05f;
+    private float Camera_Correction = 161.0828f;
+    private float Camera_Y_Set = 2.05f;
 
     public float rotation_X;
     public float rotation_Y;
@@ -35,7 +35,7 @@ public class MainCamera : MonoBehaviour
     public bool Zoom_In_Check = false;
     private int Zoom_In_Count = 0;
 
-    public float Angle_X_Correction = 0.2966995f;
+    private float Angle_X_Correction = 0.2966995f;
 
     private float AfterFire_Y = 0.0f;
     public float Stacked_AfterFire_Y = 0.0f;
@@ -43,6 +43,8 @@ public class MainCamera : MonoBehaviour
     private float Origin_Radius = 2.685f;
     private float Origin_Camera_Correction = 161.0828f;
     private float Origin_Camera_Y_Set = 2.05f;
+
+    private bool Cam_Control_Check = false;
 
     public LayerMask Cam_Collision;
 
@@ -195,8 +197,22 @@ public class MainCamera : MonoBehaviour
             Camera_Y_Set = 1.7f + (Angle_Y - 5) * 0.025f;
             Radius = 1.5f - (Angle_Y - 5) * 0.08f;
             Camera_Correction = 144.0828f - (Angle_Y - 5) * 0.4f;
+
+            if (Cam_Control_Check == false)
+            {
+                Cam_Control_Check = true;
+            }
+        }
+
+        if (Angle_Y < 5 && Cam_Control_Check == true)
+        {
+            Camera_Y_Set = 1.7f;
+            Radius = 1.5f;
+            Camera_Correction = 144.0828f;
+            Cam_Control_Check = false;
         }
     }
+
     private void Camera_Collision()
     {
         if (Physics.Raycast(transform.position, Player_Center.transform.position - transform.position, out hit, 3.0f, Cam_Collision))

@@ -2827,7 +2827,6 @@ MonoBehaviour:
   Player_Center: {fileID: 955141003}
   Pl_Pos: {x: 0, y: 0, z: 0}
   Camera_Center: {x: 0, y: 0, z: 0}
-  Radius: 2.685
   Angle_X: 2.81
   Angle_Y: 0
   rotation_X: 0
@@ -3030,6 +3029,7 @@ MonoBehaviour:
   Origin_Hp: 0
   Enemy_Hp_Bar: {fileID: 1682355409}
   Enemy_Hp_Text: {fileID: 2118172897}
+  Boss_State: 0
 --- !u!136 &989003707
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3044,22 +3044,6 @@ CapsuleCollider:
   m_Height: 6.719259
   m_Direction: 1
   m_Center: {x: 0.000000005775892, y: 2.557162, z: -0.7405114}
---- !u!54 &989003708
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 989003703}
-  serializedVersion: 2
-  m_Mass: 1000
-  m_Drag: Infinity
-  m_AngularDrag: 0
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!4 &1033909169 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8969971835649028076, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8, type: 3}
