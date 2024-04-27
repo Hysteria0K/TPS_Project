@@ -23,8 +23,8 @@ public class MainCamera : MonoBehaviour
 
     private float float_angle;
 
-    private float Camera_Correction = 161.0828f;
-    private float Camera_Y_Set = 2.05f;
+    public float Camera_Correction = 161.0828f;
+    public float Camera_Y_Set = 2.05f;
 
     public float rotation_X;
     public float rotation_Y;
@@ -35,7 +35,7 @@ public class MainCamera : MonoBehaviour
     public bool Zoom_In_Check = false;
     private int Zoom_In_Count = 0;
 
-    private float Angle_X_Correction = 0.2966995f;
+    public float Angle_X_Correction = 0.2966995f;
 
     private float AfterFire_Y = 0.0f;
     public float Stacked_AfterFire_Y = 0.0f;
@@ -114,7 +114,6 @@ public class MainCamera : MonoBehaviour
         float_angle = Angle_X * 180.0f/Mathf.PI;
 
         this.transform.rotation = Quaternion.Euler(new Vector3(Angle_Y, float_angle - Camera_Correction, 0) + Player.GetComponent<Gun>().Recoil);
-
 
         Zoom();
 
@@ -195,7 +194,7 @@ public class MainCamera : MonoBehaviour
         {
             Camera_Y_Set = 1.7f + (Angle_Y - 5) * 0.025f;
             Radius = 1.5f - (Angle_Y - 5) * 0.08f;
-            Camera_Correction = 141.0828f - (Angle_Y - 5) * 0.4f;
+            Camera_Correction = 144.0828f - (Angle_Y - 5) * 0.4f;
         }
     }
     private void Camera_Collision()

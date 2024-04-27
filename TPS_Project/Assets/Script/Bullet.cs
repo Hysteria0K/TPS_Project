@@ -78,5 +78,14 @@ public class Bullet : MonoBehaviour
             }
             Destroy(this.gameObject);
         }
+
+        if (other.CompareTag("Boss"))
+        {
+            other.GetComponent<Boss>().Hp -= Damage;
+            other.GetComponent<Boss>().Enemy_Hp_Update();
+            DamageTextPrefab.GetComponent<TextMeshProUGUI>().text = Damage.ToString();
+            Instantiate(DamageTextPrefab, new Vector3(960 + Random.Range(-60, 60), 540 + Random.Range(-30, 30), 10), Quaternion.Euler(0, 0, 0), Canvas.transform);
+            Destroy(this.gameObject);
+        }
     }
 }
