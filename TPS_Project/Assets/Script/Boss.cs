@@ -14,9 +14,11 @@ public class Boss : MonoBehaviour
 
     public int Boss_State;
 
-    Animator animator;
+    public Animator animator;
 
     private float animTime;
+
+    //비행시 y값 5 올릴것.
 
     private void Awake()
     {
@@ -26,6 +28,8 @@ public class Boss : MonoBehaviour
         Enemy_Hp_Update();
 
         Boss_State = 0;
+
+        animator.SetInteger("State", 0);
     }
 
     // Start is called before the first frame update
@@ -38,6 +42,8 @@ public class Boss : MonoBehaviour
     void Update()
     {
         
+
+
     }
     public void Enemy_Hp_Update()
     {
