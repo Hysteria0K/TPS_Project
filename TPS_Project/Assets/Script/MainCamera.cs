@@ -50,6 +50,8 @@ public class MainCamera : MonoBehaviour
 
     public RaycastHit hit;
 
+    private float Zoom_Timer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -86,11 +88,15 @@ public class MainCamera : MonoBehaviour
 
         Recoil_Control();
 
-        Camera_Collision(); 
+        Camera_Collision();
 
     }
     void FixedUpdate()
     {
+        Camera_Zoom_Correction();
+
+        Zoom();
+
         Pl_Pos = Player.GetComponent<Player>().Player_Position;
 
         Pl_Pos.y = Pl_Pos.y + Camera_Y_Set;
@@ -117,10 +123,6 @@ public class MainCamera : MonoBehaviour
 
         this.transform.rotation = Quaternion.Euler(new Vector3(Angle_Y, float_angle - Camera_Correction, 0) + Player.GetComponent<Gun>().Recoil);
 
-        Zoom();
-
-        Camera_Zoom_Correction();
-
     }
 
     private void Zoom()
@@ -130,25 +132,37 @@ public class MainCamera : MonoBehaviour
             if (Zoom_In_Check == false)
             {
                 Player.GetComponent<Transform>().rotation = this.transform.rotation;
-                StartCoroutine(Zoom_In());
+                Zoom_Time();
             }
             if (Zoom_In_Count >= 10)
             {
                 Zoom_In_Check = true;
                 Player.GetComponent<Transform>().rotation = this.transform.rotation;
+                Zoom_Timer = 0.0f;
             }
         }
     }
-        
-    IEnumerator Zoom_In()
-    {
-        Zoom_In_Count++;
 
-        yield return new WaitForSeconds(0.001f);
-        Radius -= 0.1185f;
-        Camera_Y_Set -= 0.035f;
-        Camera_Correction -= 1.7f;
-        Angle_X -= Angle_X_Correction / 10;
+    private void Zoom_Time()
+    {
+        Zoom_Timer += Time.deltaTime;
+
+        if (Zoom_Timer >= 0.01f)
+        {
+            Zoom_In_Count++;
+            Radius -= 0.1185f;
+            Camera_Y_Set -= 0.035f;
+            Camera_Correction -= 1.7f;
+            Angle_X -= Angle_X_Correction / 10;
+            Zoom_Timer = 0.0f;
+
+            if (Angle_Y >= 5)
+            {
+                Camera_Y_Set += (Angle_Y - 5) * 0.0025f;
+                Radius -= (Angle_Y - 5) * 0.008f;
+                Camera_Correction -= (Angle_Y - 5) * 0.04f;
+            }
+        }
     }
 
     private void Recoil_Control()
@@ -192,7 +206,7 @@ public class MainCamera : MonoBehaviour
 
     private void Camera_Zoom_Correction()
     {
-        if (Angle_Y >= 5 && Player.GetComponent<Player>().Zoom_Check == true)
+        if (Angle_Y >= 5 && Zoom_In_Check == true)
         {
             Camera_Y_Set = 1.7f + (Angle_Y - 5) * 0.025f;
             Radius = 1.5f - (Angle_Y - 5) * 0.08f;
@@ -204,7 +218,7 @@ public class MainCamera : MonoBehaviour
             }
         }
 
-        if (Angle_Y < 5 && Cam_Control_Check == true && Player.GetComponent<Player>().Zoom_Check == true)
+        if (Angle_Y < 5 && Cam_Control_Check == true && Zoom_In_Check == true)
         {
             Camera_Y_Set = 1.7f;
             Radius = 1.5f;
