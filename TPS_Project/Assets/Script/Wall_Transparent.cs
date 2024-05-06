@@ -45,9 +45,8 @@ public class Wall_Transparent : MonoBehaviour
 
         }
     }
-       public void Trans()
+    public void Trans()
     {
-        Debug.Log("Åõ°ú");
         Timer = 0;
         Collision_Check = true;
     }

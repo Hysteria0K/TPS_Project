@@ -33,6 +33,8 @@ public class Player : MonoBehaviour
 
     public GameObject Heal_Particle;
 
+    public int Position_Check = 0; // 0 = A,B 스폰  , 1 = C, D 스폰
+
     // Start is called before the first frame update
     private void Awake()
     {
