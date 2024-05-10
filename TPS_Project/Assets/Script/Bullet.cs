@@ -48,7 +48,7 @@ public class Bullet : MonoBehaviour
         {
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             Destroy(this.gameObject);
-            Debug.Log("Hit");
+            Debug.Log("º®¸Â");
         }
 
         if (other.CompareTag("Floor"))
