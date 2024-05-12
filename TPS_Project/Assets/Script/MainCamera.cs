@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -52,6 +53,8 @@ public class MainCamera : MonoBehaviour
 
     private float Zoom_Timer;
 
+    public GameObject Com_Controller;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,6 +68,13 @@ public class MainCamera : MonoBehaviour
         if (Input.GetMouseButtonDown(1) && Player.GetComponent<Player>().Zoom_Check == false)
         {
             Player.GetComponent<Player>().Zoom_Check = true;
+
+            if (Com_Controller.GetComponent<Com_Controller>().Interaction_Mode == true)
+            {
+                Com_Controller.GetComponent<Com_Controller>().Interaction_Enabled = true;
+                Com_Controller.GetComponent<Com_Controller>().Interaction_Mode = false;
+            }
+
         }
         else if (Input.GetMouseButtonDown(1) && Player.GetComponent<Player>().Zoom_Check == true)
         {

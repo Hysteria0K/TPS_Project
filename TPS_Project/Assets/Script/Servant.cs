@@ -43,10 +43,14 @@ public class Servant : MonoBehaviour
     public GameObject Servant_Atk_Range;
 
     private bool UI_Active;
+
+    public Com_Controller Com_Controller;
     // Start is called before the first frame update
     private void Awake()
     {
         Player_Pos = GameObject.Find("Player").GetComponent<Transform>();
+
+        Com_Controller = GameObject.Find("Com_Pattern_Controller").GetComponent<Com_Controller>();
 
         State = 0;
 
@@ -55,6 +59,8 @@ public class Servant : MonoBehaviour
         animTime = 0.0f;
 
         Attack_Check = false;
+
+        Origin_Hp = Origin_Hp * Com_Controller.Pattern_Miss;
 
         Hp = Origin_Hp;
 

@@ -11,11 +11,14 @@ public class Servant_Atk_Range : MonoBehaviour
     private int Servant_Damage;
 
     public bool Damage_Check;
+
+    private Com_Controller Com_Controller;
     // Start is called before the first frame update
 
     private void Awake()
     {     
         Player = GameObject.Find("Player").GetComponent<Player>();
+        Com_Controller = GameObject.Find("Com_Pattern_Controller").GetComponent<Com_Controller>();
     }
 
     void Start()
@@ -39,7 +42,7 @@ public class Servant_Atk_Range : MonoBehaviour
             {
                 Damage_Check = true;
 
-                other.GetComponent<Player>().Player_Hp -= Servant_Damage;
+                other.GetComponent<Player>().Player_Hp -= Servant_Damage * Com_Controller.Pattern_Miss;
 
                 Player.Player_Hp_Update();
             }

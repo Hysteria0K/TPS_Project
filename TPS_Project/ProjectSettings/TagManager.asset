@@ -9,6 +9,7 @@ TagManager:
   - Floor
   - Servant
   - Boss
+  - Pattern
   layers:
   - Default
   - TransparentFX

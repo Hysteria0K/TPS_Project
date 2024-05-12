@@ -12,6 +12,7 @@ public class Gun : MonoBehaviour
     public GameObject CartridgePrefab;
     public GameObject CartridgeOut;
     public GameObject Reload_Image;
+    public GameObject Com_Controller;
 
     public int Full_Magazine = 61;
     public int Magazine = 0;
@@ -89,7 +90,11 @@ public class Gun : MonoBehaviour
             }
         }
 
-        Reload();
+        if (Com_Controller.GetComponent<Com_Controller>().Interaction_Mode != true)
+        {
+            Reload();
+        }
+
     }
     private void ChangeMode()
     {

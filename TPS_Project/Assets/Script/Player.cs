@@ -35,6 +35,8 @@ public class Player : MonoBehaviour
 
     public int Position_Check = 0; // 0 = A,B 스폰  , 1 = C, D 스폰
 
+    public GameObject Com_Controller;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -77,7 +79,10 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        Move();
+        if (Com_Controller.GetComponent<Com_Controller>().Interaction_Mode != true)
+        {
+            Move();
+        }
     }
 
     private void Move()
