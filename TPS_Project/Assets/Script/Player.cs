@@ -74,7 +74,10 @@ public class Player : MonoBehaviour
             // Á×À½
         }
 
-        Heal();
+        if (Com_Controller.GetComponent<Com_Controller>().Interaction_Mode != true)
+        {
+            Heal();
+        }
     }
 
     void FixedUpdate()

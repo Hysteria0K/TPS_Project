@@ -65,7 +65,6 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ChangeMode();
         Decrease_Recoil();
 
         if (Fire_Ready)
@@ -93,6 +92,7 @@ public class Gun : MonoBehaviour
         if (Com_Controller.GetComponent<Com_Controller>().Interaction_Mode != true)
         {
             Reload();
+            ChangeMode();
         }
 
     }

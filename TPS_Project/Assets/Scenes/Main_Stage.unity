@@ -3015,9 +3015,12 @@ MonoBehaviour:
   D_Circle: {fileID: 332192840}
   Interaction_UI: {fileID: 810898922}
   Player: {fileID: 1988465860}
+  Key_UI: {fileID: 7393911337583344439, guid: 88a837001bb494342a6b951dc062c892, type: 3}
+  Pattern_UI: {fileID: 868178399}
   Pattern_Miss: 1
   Interaction_Enabled: 0
   Interaction_Mode: 0
+  Key_Created: 0
 --- !u!4 &139453595
 Transform:
   m_ObjectHideFlags: 0
@@ -9776,7 +9779,7 @@ GameObject:
   - component: {fileID: 511195252}
   - component: {fileID: 511195251}
   m_Layer: 5
-  m_Name: Magazine
+  m_Name: Interaction_Key
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29298,7 +29301,7 @@ GameObject:
   - component: {fileID: 1535366576}
   - component: {fileID: 1535366575}
   m_Layer: 5
-  m_Name: Magazine_Background
+  m_Name: Interaction_Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

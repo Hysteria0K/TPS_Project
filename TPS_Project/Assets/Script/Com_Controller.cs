@@ -18,6 +18,10 @@ public class Com_Controller : MonoBehaviour
 
     public GameObject Player;
 
+    public GameObject Key_UI;
+
+    public Transform Pattern_UI;
+
     private float Timer;  // 패턴이 발동되는 시간
 
     private float Pattern_Time = 61.0f; // 간격
@@ -26,6 +30,12 @@ public class Com_Controller : MonoBehaviour
 
     public bool Interaction_Enabled;
     public bool Interaction_Mode;
+
+    public bool Key_Created;
+
+    private int[] Key = new int[8];
+
+    public int Pattern_State;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +56,9 @@ public class Com_Controller : MonoBehaviour
 
         Interaction_Enabled = false;
         Interaction_Mode = false;
+        Key_Created = false;
+
+        Pattern_State = 0;
     }
 
     // Update is called once per frame
@@ -112,13 +125,72 @@ public class Com_Controller : MonoBehaviour
     }
     private void Interaction_Pattern()
     {
+        if (Interaction_Mode == true && Key_Created == false)
+        {
+            Create_Key();
+        }
+
         if (Interaction_Enabled == true && Input.GetKeyDown(KeyCode.E) && Player.GetComponent<Player>().Zoom_Check == false)
         {
             Player.GetComponent<Animator>().SetFloat("Speed", 0);
             Interaction_Enabled = false;
             Interaction_Mode = true;
         }
+    }
+    private void Create_Key()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            Key[i] = Random.Range(0, 8);
 
-
+            switch(Key[i])
+            {
+                case 0:
+                    {
+                        Key_UI.GetComponent<Key_Controller>().Key_Data = "Q";
+                        break;
+                    }
+                case 1:
+                    {
+                        Key_UI.GetComponent<Key_Controller>().Key_Data = "W";
+                        break;
+                    }
+                case 2:
+                    {
+                        Key_UI.GetComponent<Key_Controller>().Key_Data = "E";
+                        break;
+                    }
+                case 3:
+                    {
+                        Key_UI.GetComponent<Key_Controller>().Key_Data = "R";
+                        break;
+                    }
+                case 4:
+                    {
+                        Key_UI.GetComponent<Key_Controller>().Key_Data = "A";
+                        break;
+                    }
+                case 5:
+                    {
+                        Key_UI.GetComponent<Key_Controller>().Key_Data = "S";
+                        break;
+                    }
+                case 6:
+                    {
+                        Key_UI.GetComponent<Key_Controller>().Key_Data = "D";
+                        break;
+                    }
+                case 7:
+                    {
+                        Key_UI.GetComponent<Key_Controller>().Key_Data = "F";
+                        break;
+                    }
+                default: break;
+            }
+            Key_UI.GetComponent<Key_Controller>().State = i;
+            Instantiate(Key_UI, new Vector3(-520 + 200 * i, 300, 0) + Pattern_UI.position, Quaternion.Euler(0, 0, 0), Pattern_UI);
+        }
+        Key_Created = true;
+        Pattern_State = 0;
     }
 }
