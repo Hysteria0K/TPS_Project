@@ -14,6 +14,8 @@ public class Key_Controller : MonoBehaviour
 
     private Com_Controller Com_Pattern_Controller;
 
+    public bool Key_Block = false;
+
     // Start is called before the first frame update
 
     private void Awake()
@@ -24,35 +26,44 @@ public class Key_Controller : MonoBehaviour
     {
         Key_Text.GetComponent<TextMeshProUGUI>().text = Key_Data;
 
+        if (State != 0)
+        {
+            Key_Block = true;
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Com_Pattern_Controller.Interaction_Mode == true && Com_Pattern_Controller.Key_Created == true && Com_Pattern_Controller.Pattern_State == State)
+        if (Com_Pattern_Controller.Interaction_Mode == true && Com_Pattern_Controller.Key_Created == true && Com_Pattern_Controller.Pattern_State == State && Key_Block == false)
         {
             Press_Check();
+        }
+    }
+    private void LateUpdate()
+    {
+        if (Key_Block == true && Input.anyKeyDown && Com_Pattern_Controller.Pattern_State == State && Com_Pattern_Controller.Interaction_Mode == true && Com_Pattern_Controller.Key_Created == true)
+        {
+            Key_Block = false;
         }
     }
 
     private void Press_Check()
     {
-        if (Input.anyKeyDown)
+        foreach (KeyCode keyCode in System.Enum.GetValues(typeof(KeyCode)))
         {
-            foreach (KeyCode keyCode in System.Enum.GetValues(typeof(KeyCode)))
+            if (Input.GetKeyDown(keyCode))
             {
-                if (Input.GetKeyDown(keyCode))
-                {
-                    Debug.Log("Pressed key: " + keyCode);
+                Debug.Log("Pressed key: " + keyCode);
 
-                    if (keyCode.ToString() == Key_Data)
-                    {
-                        Debug.Log("정답");
-                        Com_Pattern_Controller.Pattern_State++;
-                        Destroy(this.gameObject);
-                    }
-                    break;
+                if (keyCode.ToString() == Key_Data)
+                {
+                    Debug.Log("정답");
+                    Com_Pattern_Controller.Pattern_State++;
+                    Destroy(this.gameObject);
                 }
+                break;
             }
         }
     }
