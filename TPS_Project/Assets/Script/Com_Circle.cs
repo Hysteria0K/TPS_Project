@@ -33,6 +33,11 @@ public class Com_Circle : MonoBehaviour
         {
             Pattern_Failure();
         }
+
+        if (Com_Controller.Success == true)
+        {
+            Pattern_Success();
+        }
     }
 
     private void LateUpdate()
@@ -84,4 +89,17 @@ public class Com_Circle : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
+    private void Pattern_Success()
+    {
+        Table_Pattern.SetActive(false);
+
+        if (hit_check == true)
+        {
+            Com_Controller.Interaction_Enabled = false;
+            hit_check = false;
+        }
+
+        Com_Controller.Success = false;
+        this.gameObject.SetActive(false);
+    }
 }

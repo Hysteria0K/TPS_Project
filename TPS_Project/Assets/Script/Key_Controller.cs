@@ -36,6 +36,17 @@ public class Key_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Com_Pattern_Controller.Key_Miss == true)
+        {
+            Destroy(this.gameObject);
+        }
+
+        if (Com_Pattern_Controller.Interaction_Mode == false)
+        {
+            Com_Pattern_Controller.Key_Created = false;
+            Destroy(this.gameObject);
+        }
+
         if (Com_Pattern_Controller.Interaction_Mode == true && Com_Pattern_Controller.Key_Created == true && Com_Pattern_Controller.Pattern_State == State && Key_Block == false)
         {
             Press_Check();
@@ -60,7 +71,23 @@ public class Key_Controller : MonoBehaviour
                 if (keyCode.ToString() == Key_Data)
                 {
                     Debug.Log("정답");
-                    Com_Pattern_Controller.Pattern_State++;
+
+                    if (State == 7)
+                    {
+                        Com_Pattern_Controller.Success_Pattern();
+                    }
+                    else
+                    {
+                        Com_Pattern_Controller.Pattern_State++;
+                    }
+
+                    Destroy(this.gameObject);
+                }
+
+                else
+                {
+                    Debug.Log("오답");
+                    Com_Pattern_Controller.Key_Miss = true;
                     Destroy(this.gameObject);
                 }
                 break;

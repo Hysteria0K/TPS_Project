@@ -22,7 +22,7 @@ public class Com_Controller : MonoBehaviour
 
     public Transform Pattern_UI;
 
-    private float Timer;  // 패턴이 발동되는 시간
+    public float Timer;  // 패턴이 발동되는 시간
 
     private float Pattern_Time = 61.0f; // 간격
 
@@ -36,6 +36,10 @@ public class Com_Controller : MonoBehaviour
     private int[] Key = new int[8];
 
     public int Pattern_State;
+
+    public bool Success;
+
+    public bool Key_Miss;
 
     // Start is called before the first frame update
     void Start()
@@ -59,6 +63,9 @@ public class Com_Controller : MonoBehaviour
         Key_Created = false;
 
         Pattern_State = 0;
+        Success = false;
+
+        Key_Miss = false;
     }
 
     // Update is called once per frame
@@ -125,9 +132,11 @@ public class Com_Controller : MonoBehaviour
     }
     private void Interaction_Pattern()
     {
-        if (Interaction_Mode == true && Key_Created == false)
+        if ((Interaction_Mode == true && Key_Created == false) || Key_Miss == true)
         {
             Create_Key();
+            Success = false;
+            Key_Miss = false;
         }
 
         if (Interaction_Enabled == true && Input.GetKeyDown(KeyCode.E) && Player.GetComponent<Player>().Zoom_Check == false)
@@ -192,5 +201,15 @@ public class Com_Controller : MonoBehaviour
         }
         Key_Created = true;
         Pattern_State = 0;
+    }
+    public void Success_Pattern()
+    {
+        Key_Created = false;
+        Interaction_Mode = false;
+        Interaction_Enabled = false;
+        Pattern_State = 0;
+        Success = true;
+
+        Debug.Log("패턴완");
     }
 }
