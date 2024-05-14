@@ -16,17 +16,13 @@ public class Crystal : MonoBehaviour
 
     public string Enemy_Name;
 
-    private void Awake()
-    {
-        Hp = 10000;
-        Origin_Hp = Hp;
-
-    }
+    public GameObject Crystal_Controller;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        Hp = 10000;
+        Origin_Hp = Hp;
     }
 
     // Update is called once per frame
@@ -34,8 +30,9 @@ public class Crystal : MonoBehaviour
     {
         if (Hp <= 0)
         {
-            Destroy(this.gameObject);
+            Crystal_Controller.GetComponent<Crystal_Controller>().Crystal_Count--;
             Enemy_Hp_UI.SetActive(false);
+            Destroy(this.gameObject);
         }
 
     }
