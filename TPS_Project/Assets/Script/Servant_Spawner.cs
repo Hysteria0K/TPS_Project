@@ -20,6 +20,8 @@ public class Servant_Spawner : MonoBehaviour
 
     private Player player;
 
+    public Crystal_Controller CrystalController;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -35,7 +37,15 @@ public class Servant_Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Timer += Time.deltaTime;
+        if (CrystalController.Crystal_Count == 0)
+        {
+            Timer += Time.deltaTime * 5;
+        }
+
+        else
+        {
+            Timer += Time.deltaTime;
+        }
 
         if (Timer > Spawn_Time)
         {

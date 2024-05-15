@@ -24,7 +24,7 @@ public class Com_Controller : MonoBehaviour
 
     public float Timer;  // 패턴이 발동되는 시간
 
-    private float Pattern_Time = 61.0f; // 간격
+    private float Pattern_Time = 31.0f; // 간격
 
     public int Pattern_Miss = 1;
 

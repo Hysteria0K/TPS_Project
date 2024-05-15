@@ -5,15 +5,18 @@ using UnityEngine.UI;
 
 public class Com_Circle : MonoBehaviour
 {
+
     public GameObject Pattern_Controller;
 
     public GameObject Table_Pattern;
 
     public Image Circle;
 
+    public GameObject Pattern_UI;
+
     private float Timer = 0.0f; //제한시간까지 차오름
 
-    private float Limit = 60.0f; //제한시간
+    private float Limit = 30.0f; //제한시간
 
     private Com_Controller Com_Controller;
 
@@ -79,6 +82,8 @@ public class Com_Circle : MonoBehaviour
     {
         Com_Controller.Pattern_Miss += 1;
         Table_Pattern.SetActive(false);
+        Pattern_UI.SetActive(false);
+        Com_Controller.Interaction_Mode = false;
 
         if (hit_check == true)
         {
