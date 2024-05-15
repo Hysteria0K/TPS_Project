@@ -55,6 +55,8 @@ public class MainCamera : MonoBehaviour
 
     public GameObject Com_Controller;
 
+    public Stage_1_Exit Stage_1_Exit;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,7 +67,7 @@ public class MainCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1) && Player.GetComponent<Player>().Zoom_Check == false)
+        if (Input.GetMouseButtonDown(1) && Player.GetComponent<Player>().Zoom_Check == false && Stage_1_Exit.Start_FadeOut == false)
         {
             Player.GetComponent<Player>().Zoom_Check = true;
 
@@ -76,7 +78,7 @@ public class MainCamera : MonoBehaviour
             }
 
         }
-        else if (Input.GetMouseButtonDown(1) && Player.GetComponent<Player>().Zoom_Check == true)
+        else if (Input.GetMouseButtonDown(1) && Player.GetComponent<Player>().Zoom_Check == true && Stage_1_Exit.Start_FadeOut == false)
         {
             ResetCamera();
         }

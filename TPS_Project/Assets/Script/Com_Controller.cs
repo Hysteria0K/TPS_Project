@@ -22,6 +22,8 @@ public class Com_Controller : MonoBehaviour
 
     public Transform Pattern_UI;
 
+    public Crystal_Controller Crystal_Controller;
+
     public float Timer;  // 패턴이 발동되는 시간
 
     private float Pattern_Time = 31.0f; // 간격
@@ -71,7 +73,15 @@ public class Com_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Timer += Time.deltaTime;
+        if (Crystal_Controller.Crystal_Count == 0 && Success == false)
+        {
+            Success_Pattern();
+        }
+
+        if (Crystal_Controller.Crystal_Count != 0)
+        {
+            Timer += Time.deltaTime;
+        }
 
         if (Timer > Pattern_Time)
         {

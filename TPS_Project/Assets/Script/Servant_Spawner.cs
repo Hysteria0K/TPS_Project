@@ -39,7 +39,7 @@ public class Servant_Spawner : MonoBehaviour
     {
         if (CrystalController.Crystal_Count == 0)
         {
-            Timer += Time.deltaTime * 5;
+            Timer += Time.deltaTime * 4;
         }
 
         else

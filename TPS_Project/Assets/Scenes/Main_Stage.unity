@@ -3514,6 +3514,7 @@ MonoBehaviour:
   Player: {fileID: 1988465860}
   Key_UI: {fileID: 7393911337583344439, guid: 88a837001bb494342a6b951dc062c892, type: 3}
   Pattern_UI: {fileID: 868178399}
+  Crystal_Controller: {fileID: 1037317875}
   Timer: 0
   Pattern_Miss: 1
   Interaction_Enabled: 0
@@ -20060,6 +20061,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   Com_Controller: {fileID: 139453593}
+  Stage_1_Exit: {fileID: 2007683077}
 --- !u!1 &975094651
 GameObject:
   m_ObjectHideFlags: 0
@@ -43011,7 +43013,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2007683072}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.8564014, y: 2.428977, z: 3}
+  m_LocalPosition: {x: 4.000002, y: 2.428977, z: 3}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
