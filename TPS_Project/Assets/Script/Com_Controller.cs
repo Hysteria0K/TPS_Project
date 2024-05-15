@@ -142,7 +142,7 @@ public class Com_Controller : MonoBehaviour
     }
     private void Interaction_Pattern()
     {
-        if ((Interaction_Mode == true && Key_Created == false) || Key_Miss == true)
+        if (((Interaction_Mode == true && Key_Created == false ) || Key_Miss == true) && Crystal_Controller.Crystal_Count != 0)
         {
             Create_Key();
             Success = false;

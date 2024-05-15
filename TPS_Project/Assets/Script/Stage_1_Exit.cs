@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Stage_1_Exit : MonoBehaviour
 {
@@ -46,6 +47,7 @@ public class Stage_1_Exit : MonoBehaviour
 
         if (Timer >= Timer_Limit)
         {
+            SceneManager.LoadScene("Main_Stage_2");
             Start_FadeOut = false;
         }
     }
