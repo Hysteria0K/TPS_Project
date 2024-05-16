@@ -44,7 +44,7 @@ public class Servant : MonoBehaviour
 
     private bool UI_Active;
 
-    public Com_Controller Com_Controller;
+    private Com_Controller Com_Controller;
     // Start is called before the first frame update
     private void Awake()
     {

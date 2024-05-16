@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Com_Controller : MonoBehaviour
 {
@@ -43,54 +44,69 @@ public class Com_Controller : MonoBehaviour
 
     public bool Key_Miss;
 
+    private bool Scene_Check = true;
+
     // Start is called before the first frame update
     void Start()
     {
-        Table_Clover.SetActive(false);
-        Table_Spade.SetActive(false);
-        Table_Heart.SetActive(false);
-        Table_Diamond.SetActive(false);
+        if (SceneManager.GetActiveScene().name != "Main_Stage_1")
+        {
+            Scene_Check = false;
+        }
 
-        A_Circle.SetActive(false);
-        B_Circle.SetActive(false);
-        C_Circle.SetActive(false);
-        D_Circle.SetActive(false);
+        if (Scene_Check == true)
+        {
+            Table_Clover.SetActive(false);
+            Table_Spade.SetActive(false);
+            Table_Heart.SetActive(false);
+            Table_Diamond.SetActive(false);
 
-        Timer = 60.0f;
+            A_Circle.SetActive(false);
+            B_Circle.SetActive(false);
+            C_Circle.SetActive(false);
+            D_Circle.SetActive(false);
 
-        Pattern_Miss = 1;
+            Timer = 60.0f;
+
+            Pattern_Miss = 1;
+
+            Key_Created = false;
+
+            Pattern_State = 0;
+            Success = false;
+
+            Key_Miss = false;
+        }
 
         Interaction_Enabled = false;
         Interaction_Mode = false;
-        Key_Created = false;
-
-        Pattern_State = 0;
-        Success = false;
-
-        Key_Miss = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Crystal_Controller.Crystal_Count == 0 && Success == false)
+        if (Scene_Check == true)
         {
-            Success_Pattern();
-        }
 
-        if (Crystal_Controller.Crystal_Count != 0)
-        {
-            Timer += Time.deltaTime;
-        }
+            if (Crystal_Controller.Crystal_Count == 0 && Success == false)
+            {
+                Success_Pattern();
+            }
 
-        if (Timer > Pattern_Time)
-        {
-            Select_Pattern();
-            Timer = 0.0f;
-        }
+            if (Crystal_Controller.Crystal_Count != 0)
+            {
+                Timer += Time.deltaTime;
+            }
 
-        Interaction_UI_Update();
-        Interaction_Pattern();
+            if (Timer > Pattern_Time)
+            {
+                Select_Pattern();
+                Timer = 0.0f;
+            }
+
+            Interaction_UI_Update();
+            Interaction_Pattern();
+        }
     }
 
     private void Select_Pattern()
