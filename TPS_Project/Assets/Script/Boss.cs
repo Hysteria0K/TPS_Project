@@ -18,18 +18,21 @@ public class Boss : MonoBehaviour
 
     private float animTime;
 
+    public Transform Player;
+
+    public Transform Boss_Body;
     //비행시 y값 5 올릴것.
 
     private void Awake()
     {
-        Hp = 100000;
+        Hp = 150000;
         Origin_Hp = Hp;
 
         Enemy_Hp_Update();
 
-        Boss_State = 0;
+        Boss_State = 2;
 
-        animator.SetInteger("State", 0);
+        animator.SetInteger("State", 2);
     }
 
     // Start is called before the first frame update
@@ -41,13 +44,13 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Boss_Body.LookAt(Player); //바라보기
 
 
     }
     public void Enemy_Hp_Update()
     {
-        Enemy_Hp_Text.GetComponent<TextMeshProUGUI>().text = $"Enemy ({Hp} / {Origin_Hp})";
+        Enemy_Hp_Text.GetComponent<TextMeshProUGUI>().text = $"Terror Bringer ({Hp} / {Origin_Hp})";
         Enemy_Hp_Bar.GetComponent<Image>().fillAmount = (float)Hp / Origin_Hp;
     }
 }
