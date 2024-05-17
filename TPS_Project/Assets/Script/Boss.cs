@@ -12,7 +12,7 @@ public class Boss : MonoBehaviour
     public GameObject Enemy_Hp_Bar;
     public GameObject Enemy_Hp_Text;
 
-    public int Boss_State;
+    public int Boss_State;  // 1 = attack 2 = wait 3 = die
 
     public Animator animator;
 
@@ -22,6 +22,16 @@ public class Boss : MonoBehaviour
 
     public Transform Boss_Body;
     //비행시 y값 5 올릴것.
+
+    public Transform Pattern_Canvas;
+
+    public GameObject Pattern_1;
+
+    private float Pattern_1_Timer;
+
+    private bool Pattern_1_First = false;
+
+    private float Wait_Timer;
 
     private void Awake()
     {
@@ -33,18 +43,32 @@ public class Boss : MonoBehaviour
         Boss_State = 2;
 
         animator.SetInteger("State", 2);
+
+        Pattern_1_Timer = 0.0f;
+
+        Pattern_1_First = false;
+
+        Wait_Timer = 0.0f;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        Boss_Body.LookAt(Player); //바라보기
+        if (Boss_State == 1)
+        {
+            Pattern_Chess();
+        }
+
+        if (Boss_State == 2)
+        {
+            Wait();
+        }
 
 
     }
@@ -52,5 +76,40 @@ public class Boss : MonoBehaviour
     {
         Enemy_Hp_Text.GetComponent<TextMeshProUGUI>().text = $"Terror Bringer ({Hp} / {Origin_Hp})";
         Enemy_Hp_Bar.GetComponent<Image>().fillAmount = (float)Hp / Origin_Hp;
+    }
+
+    private void Wait()
+    {
+        Boss_Body.LookAt(Player); //바라보기
+
+        Wait_Timer += Time.deltaTime;
+
+        if (Wait_Timer > 5.0f)
+        {
+            Wait_Timer = 0.0f;
+            Boss_State = 1;
+        }
+    }
+
+    private void Pattern_Chess() // Pattern_1
+    {
+        if (Pattern_1_First == false)
+        {
+            Instantiate(Pattern_1, new Vector3(65.48f, 4.5098f, 14.94f), Quaternion.Euler(0, 0, 0), Pattern_Canvas);
+            Pattern_1_First = true;
+        }
+
+        if (Pattern_1_First == true)
+        {
+            Pattern_1_Timer += Time.deltaTime;
+
+            if (Pattern_1_Timer > 1.0f)
+            {
+                Instantiate(Pattern_1, new Vector3(65.48f, 4.5098f, 14.94f), Quaternion.Euler(0, 180, 0), Pattern_Canvas);
+                Boss_State = 2;
+                Pattern_1_Timer = 0.0f;
+                Pattern_1_First = false;
+            }
+        }
     }
 }

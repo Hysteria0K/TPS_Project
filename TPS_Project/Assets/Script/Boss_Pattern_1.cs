@@ -7,8 +7,6 @@ public class Boss_Pattern_1 : MonoBehaviour
 {
     public Transform Filling;
 
-    public GameObject Border;
-
     private float Scale;
 
     private float Speed;
