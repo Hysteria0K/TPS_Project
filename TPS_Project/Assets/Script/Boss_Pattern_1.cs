@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class Boss_Pattern_1 : MonoBehaviour
 {
-    public Transform Filling;
+    public GameObject Filling;
+
+    public GameObject Border;
 
     private float Scale;
 
@@ -16,6 +18,10 @@ public class Boss_Pattern_1 : MonoBehaviour
     private Player Player;
 
     private int Damage;
+
+    public GameObject Explosion;
+
+    private bool Explosion_Check;
 
     private void Awake()
     {
@@ -28,6 +34,7 @@ public class Boss_Pattern_1 : MonoBehaviour
         Speed = 0.02f;
         Hit_Check = false;
         Damage = 300;
+        Explosion_Check = false;
     }
 
     // Update is called once per frame
@@ -39,16 +46,28 @@ public class Boss_Pattern_1 : MonoBehaviour
         }
 
         else 
-        { 
-            if (Hit_Check == true)
+        {
+            if (Hit_Check == true && Explosion_Check == false)
             {
                 Player.Player_Hp -= Damage;
                 Player.Player_Hp_Update();
             }
-            Destroy(this.gameObject);
-        }
 
-        Filling.localScale = new Vector3(Scale, Scale, Scale);
+            if (Explosion_Check == false)
+            {
+                Explosion.SetActive(true);
+                Border.SetActive(false);
+                Filling.SetActive(false);
+                Explosion_Check = true;
+            }
+        }
+    }
+    private void LateUpdate()
+    {
+        if (Explosion_Check == false)
+        {
+            Filling.transform.localScale = new Vector3(Scale, Scale, Scale);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
