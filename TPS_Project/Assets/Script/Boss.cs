@@ -9,6 +9,12 @@ public class Boss : MonoBehaviour
     public int Hp;
     public int Origin_Hp;
 
+    public bool Right_Side;
+
+    private float Pos_Y;
+    private float Right_Z;
+    private float Left_Z;
+
     public GameObject Enemy_Hp_Bar;
     public GameObject Enemy_Hp_Text;
 
@@ -51,6 +57,12 @@ public class Boss : MonoBehaviour
         Wait_Timer = 0.0f;
 
         animTime = 0.0f;
+
+        Right_Side = true;
+
+        Pos_Y = 4.259622f;
+        Right_Z = -4.0f;
+        Left_Z = 32.0f;
     }
 
     // Start is called before the first frame update
