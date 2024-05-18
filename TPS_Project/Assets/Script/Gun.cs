@@ -302,7 +302,6 @@ public class Gun : MonoBehaviour
             Quaternion.Euler(new Vector3(CartridgeOut.transform.rotation.eulerAngles.x + 90.0f, this.transform.rotation.eulerAngles.y, CartridgeOut.transform.rotation.eulerAngles.z))); //ÅºÇÇ
         animator.SetBool("Shooting", true);
         Magazine -= 1;
-        Debug.Log(Magazine);
         Increase_Recoil();
         Fire_Check = true;
         Fire_Timer = 0.0f;

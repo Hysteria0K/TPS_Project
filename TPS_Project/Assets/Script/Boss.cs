@@ -42,13 +42,15 @@ public class Boss : MonoBehaviour
 
         Boss_State = 2;
 
-        animator.SetInteger("State", 2);
+        animator.SetInteger("State", 2); // 1 = attack 2 = wait 3 = die
 
         Pattern_1_Timer = 0.0f;
 
         Pattern_1_First = false;
 
         Wait_Timer = 0.0f;
+
+        animTime = 0.0f;
     }
 
     // Start is called before the first frame update
@@ -84,7 +86,7 @@ public class Boss : MonoBehaviour
 
         Wait_Timer += Time.deltaTime;
 
-        if (Wait_Timer > 5.0f)
+        if (Wait_Timer > 7.0f)
         {
             Wait_Timer = 0.0f;
             Boss_State = 1;
@@ -93,8 +95,10 @@ public class Boss : MonoBehaviour
 
     private void Pattern_Chess() // Pattern_1
     {
+        Boss_Body.LookAt(Player); //바라보기
         if (Pattern_1_First == false)
         {
+            animator.SetInteger("State", 1);
             Instantiate(Pattern_1, new Vector3(65.48f, 4.5098f, 14.94f), Quaternion.Euler(0, 0, 0), Pattern_Canvas);
             Pattern_1_First = true;
         }
@@ -105,6 +109,7 @@ public class Boss : MonoBehaviour
 
             if (Pattern_1_Timer > 1.0f)
             {
+                animator.SetInteger("State", 2);
                 Instantiate(Pattern_1, new Vector3(65.48f, 4.5098f, 14.94f), Quaternion.Euler(0, 180, 0), Pattern_Canvas);
                 Boss_State = 2;
                 Pattern_1_Timer = 0.0f;
