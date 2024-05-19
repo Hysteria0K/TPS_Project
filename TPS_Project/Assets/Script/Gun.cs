@@ -295,8 +295,8 @@ public class Gun : MonoBehaviour
     }
 
     private void Fire()
-
     {
+        BulletPrefab.GetComponent<Bullet>().Bullet_Type = Fire_Mode;
         Instantiate(BulletPrefab, BulletStart.transform.position, BulletStart.transform.rotation);
         Instantiate(CartridgePrefab, CartridgeOut.transform.position,
             Quaternion.Euler(new Vector3(CartridgeOut.transform.rotation.eulerAngles.x + 90.0f, this.transform.rotation.eulerAngles.y, CartridgeOut.transform.rotation.eulerAngles.z))); //ÅºÇÇ

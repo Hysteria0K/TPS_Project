@@ -18,6 +18,8 @@ public class Bullet : MonoBehaviour
 
     private GameObject Canvas;
 
+    public int Bullet_Type;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -92,6 +94,17 @@ public class Bullet : MonoBehaviour
             other.GetComponent<Crystal>().Enemy_Hp_Update();
             DamageTextPrefab.GetComponent<TextMeshProUGUI>().text = Damage.ToString();
             Instantiate(DamageTextPrefab, new Vector3(960 + Random.Range(-60, 60), 540 + Random.Range(-30, 30), 10), Quaternion.Euler(0, 0, 0), Canvas.transform);
+            Destroy(this.gameObject);
+        }
+
+        if (other.CompareTag("Fireball"))
+        {
+            if (other.GetComponent<Fireball>().Fireball_Color == Bullet_Type)
+            {
+                other.GetComponent<Fireball>().Hp -= Damage;
+                DamageTextPrefab.GetComponent<TextMeshProUGUI>().text = Damage.ToString();
+                Instantiate(DamageTextPrefab, new Vector3(960 + Random.Range(-60, 60), 540 + Random.Range(-30, 30), 10), Quaternion.Euler(0, 0, 0), Canvas.transform);
+            }
             Destroy(this.gameObject);
         }
     }

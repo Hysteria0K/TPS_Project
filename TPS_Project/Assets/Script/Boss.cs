@@ -50,6 +50,8 @@ public class Boss : MonoBehaviour
 
     private float Wait_Timer;
 
+    public Relink_Pattern_Manager Relink_Manager;
+
 
     private void Awake()
     {
@@ -94,7 +96,8 @@ public class Boss : MonoBehaviour
 
         if (Boss_State == 1)
         {
-            Pattern_Chess();
+            //Pattern_Chess();
+            Pattern_Relink();
         }
 
         if (Boss_State == 2)
@@ -221,6 +224,7 @@ public class Boss : MonoBehaviour
     }
     private void Pattern_Relink() // Pattern_2
     {
-
+        Boss_Body.LookAt(Player);
+        Relink_Manager.Relink_Pattern();
     }
 }
