@@ -133,7 +133,7 @@ public class Player : MonoBehaviour
     }
     private void Heal()
     {
-        if (Input.GetKeyDown(KeyCode.C) && Heal_Pack > 0 && Player_Hp < Player_Origin_Hp)
+        if (Input.GetKeyDown(KeyCode.C) && Heal_Pack > 0 && Player_Hp < Player_Origin_Hp && Time.timeScale != 0.0f)
         {
             Heal_Pack -= 1;
             Player_Hp += Player_Origin_Hp / 2;

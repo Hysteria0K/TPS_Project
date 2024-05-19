@@ -98,7 +98,7 @@ public class Gun : MonoBehaviour
     }
     private void ChangeMode()
     {
-        if (Input.GetKeyDown(KeyCode.V) && Burst_Check == false && Auto_Check == false)
+        if (Input.GetKeyDown(KeyCode.V) && Burst_Check == false && Auto_Check == false && Time.timeScale != 0.0f)
         {
             if (Fire_Mode != 2) Fire_Mode += 1;
             else Fire_Mode = 0;
@@ -151,11 +151,11 @@ public class Gun : MonoBehaviour
 
     private void SemiAuto()
     {
-        if (this.gameObject.GetComponent<Player>().Zoom_Check == true && Input.GetMouseButtonDown(0) && Magazine != 0)
+        if (this.gameObject.GetComponent<Player>().Zoom_Check == true && Input.GetMouseButtonDown(0) && Magazine != 0 && Time.timeScale != 0.0f)
         {
             Fire();
         }
-        else if (this.gameObject.GetComponent<Player>().Zoom_Check == true && Input.GetMouseButtonDown(0) && Magazine == 0)
+        else if (this.gameObject.GetComponent<Player>().Zoom_Check == true && Input.GetMouseButtonDown(0) && Magazine == 0 && Time.timeScale != 0.0f)
         {
             Reload_Check = true;
         }
@@ -163,14 +163,14 @@ public class Gun : MonoBehaviour
 
     private void BurstFire()
     {
-        if (this.gameObject.GetComponent<Player>().Zoom_Check == true && Input.GetMouseButtonDown(0) && Magazine != 0 && Burst_Check == false)
+        if (this.gameObject.GetComponent<Player>().Zoom_Check == true && Input.GetMouseButtonDown(0) && Magazine != 0 && Burst_Check == false && Time.timeScale != 0.0f)
         {
             Burst_Check = true;
             Timer += Burst_Time;
             Debug.Log("Burst!");
         }
 
-        else if (this.gameObject.GetComponent<Player>().Zoom_Check == true && Input.GetMouseButtonDown(0) && Magazine == 0 && Burst_Check == false)
+        else if (this.gameObject.GetComponent<Player>().Zoom_Check == true && Input.GetMouseButtonDown(0) && Magazine == 0 && Burst_Check == false && Time.timeScale != 0.0f)
         {
             Reload_Check = true;
         }
@@ -200,13 +200,13 @@ public class Gun : MonoBehaviour
 
     private void FullAuto()
     {
-        if (this.gameObject.GetComponent<Player>().Zoom_Check == true && Input.GetMouseButton(0) && Magazine != 0 && Auto_Check == false)
+        if (this.gameObject.GetComponent<Player>().Zoom_Check == true && Input.GetMouseButton(0) && Magazine != 0 && Auto_Check == false && Time.timeScale != 0.0f)
         {
             Fire();
             Auto_Check = true;
         }
 
-        else if (this.gameObject.GetComponent<Player>().Zoom_Check == true && Input.GetMouseButton(0) && Magazine == 0 && Auto_Check == false)
+        else if (this.gameObject.GetComponent<Player>().Zoom_Check == true && Input.GetMouseButton(0) && Magazine == 0 && Auto_Check == false && Time.timeScale != 0.0f)
         {
             Reload_Check = true;
         }

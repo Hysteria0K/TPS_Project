@@ -67,7 +67,7 @@ public class MainCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1) && Player.GetComponent<Player>().Zoom_Check == false && Stage_1_Exit.Start_FadeOut == false)
+        if (Input.GetMouseButtonDown(1) && Player.GetComponent<Player>().Zoom_Check == false && Stage_1_Exit.Start_FadeOut == false && Time.timeScale != 0.0f)
         {
             Player.GetComponent<Player>().Zoom_Check = true;
 
@@ -78,7 +78,7 @@ public class MainCamera : MonoBehaviour
             }
 
         }
-        else if (Input.GetMouseButtonDown(1) && Player.GetComponent<Player>().Zoom_Check == true && Stage_1_Exit.Start_FadeOut == false)
+        else if (Input.GetMouseButtonDown(1) && Player.GetComponent<Player>().Zoom_Check == true && Stage_1_Exit.Start_FadeOut == false && Time.timeScale != 0.0f)
         {
             ResetCamera();
         }

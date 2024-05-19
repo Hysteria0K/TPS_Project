@@ -15,6 +15,8 @@ public class UI_Status : MonoBehaviour
     public GameObject FullAuto;
     public GameObject BurstFire;
     public GameObject SemiAuto;
+    public GameObject Pause;
+    private bool Pause_Check;
 
     TextMeshProUGUI Magazine_UI_T;
     TextMeshProUGUI Full_Magazine_UI_T;
@@ -36,12 +38,16 @@ public class UI_Status : MonoBehaviour
         player = Player.GetComponent<Player>();
 
         UI_Update();
+
+        Pause.SetActive(false);
+
+        Pause_Check = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Pause_ESC();
     }
 
     public void UI_Update()
@@ -77,5 +83,25 @@ public class UI_Status : MonoBehaviour
 
         HealPack_Count_UI_T.text = string.Format("{0:D2}", player.Heal_Pack);
 
+    }
+
+    private void Pause_ESC()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape) && Pause.GetComponent<Pause_Button>().IsSetting == false)
+        {
+            if (Pause_Check == false)
+            {
+                Time.timeScale = 0.0f;
+                Pause.SetActive(true);
+                Pause_Check = true;
+            }
+
+            else if (Pause_Check == true)
+            {
+                Time.timeScale = 1.0f;
+                Pause.SetActive(false);
+                Pause_Check = false;
+            }
+        }
     }
 }
