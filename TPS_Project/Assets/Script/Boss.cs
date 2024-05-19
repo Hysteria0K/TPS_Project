@@ -11,6 +11,7 @@ public class Boss : MonoBehaviour
 
     public bool Right_Side;
 
+    private float Pos_X;
     private float Pos_Y;
     private float Right_Z;
     private float Left_Z;
@@ -33,11 +34,22 @@ public class Boss : MonoBehaviour
 
     public GameObject Pattern_1;
 
+    public GameObject Moving_Point;
+
+    private float Moving_Speed;
+
+    private bool Cross_Move_Check;
+
+    private int Wait_Select;
+
+    private bool Wait_Select_Check;
+
     private float Pattern_1_Timer;
 
     private bool Pattern_1_First = false;
 
     private float Wait_Timer;
+
 
     private void Awake()
     {
@@ -60,9 +72,14 @@ public class Boss : MonoBehaviour
 
         Right_Side = true;
 
+        Pos_X = 66.0f;
         Pos_Y = 4.259622f;
         Right_Z = -4.0f;
         Left_Z = 32.0f;
+        Moving_Speed = 13.0f;
+        Cross_Move_Check = false;
+        Wait_Select = 0;
+        Wait_Select_Check = false;
     }
 
     // Start is called before the first frame update
@@ -74,6 +91,7 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (Boss_State == 1)
         {
             Pattern_Chess();
@@ -81,7 +99,20 @@ public class Boss : MonoBehaviour
 
         if (Boss_State == 2)
         {
-            Wait();
+            switch(Wait_Select)
+            {
+                case 0:
+                    {
+                        Wait();
+                        break;
+                    }
+                case 1:
+                    {
+                        Cross_Move();
+                        break;
+                    }
+                default: break;
+            }
         }
 
 
@@ -98,11 +129,68 @@ public class Boss : MonoBehaviour
 
         Wait_Timer += Time.deltaTime;
 
+        if (Wait_Timer > 3.5f && Wait_Select_Check == false)
+        {
+             if (Random.Range(0,2) == 1)
+             {
+                Wait_Select = 1;
+                Wait_Timer = 0.0f;
+             }
+            Wait_Select_Check = true;
+        }
+
         if (Wait_Timer > 7.0f)
         {
             Wait_Timer = 0.0f;
+            Wait_Select_Check = false;
             Boss_State = 1;
         }
+    }
+
+    private void Cross_Move()
+    {
+        if (Cross_Move_Check == false)
+        {
+            Boss_Body.LookAt(Moving_Point.transform);
+            Boss_Body.position = Vector3.MoveTowards(Boss_Body.position, Moving_Point.transform.position, Time.deltaTime * Moving_Speed);
+        }
+
+        if (Boss_Body.position == Moving_Point.transform.position && Cross_Move_Check == false)
+        {
+            Cross_Move_Check = true;
+        }
+
+        if (Cross_Move_Check == true)
+        {
+            Boss_Body.LookAt(Player);
+            if (Right_Side == true)
+            {
+                Boss_Body.position = Vector3.MoveTowards(Boss_Body.position, new Vector3(Pos_X, Pos_Y, Left_Z), Time.deltaTime * Moving_Speed);
+
+                if (Boss_Body.position == new Vector3(Pos_X, Pos_Y, Left_Z))
+                {
+                    Right_Side = false;
+                    Boss_State = 1;
+                    Cross_Move_Check = false;
+                    Wait_Select_Check = false;
+                    Wait_Select = 0;
+                }
+            }
+            else 
+            {
+                Boss_Body.position = Vector3.MoveTowards(Boss_Body.position, new Vector3(Pos_X, Pos_Y, Right_Z), Time.deltaTime * Moving_Speed);
+
+                if (Boss_Body.position == new Vector3(Pos_X, Pos_Y, Right_Z))
+                {
+                    Right_Side = true;
+                    Boss_State = 1;
+                    Cross_Move_Check = false;
+                    Wait_Select_Check = false;
+                    Wait_Select = 0;
+                }
+            }
+        }
+
     }
 
     private void Pattern_Chess() // Pattern_1
