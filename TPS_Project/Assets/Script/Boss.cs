@@ -52,6 +52,9 @@ public class Boss : MonoBehaviour
 
     public Relink_Pattern_Manager Relink_Manager;
 
+    private bool Attack_Select_Check;
+    private int Attack_Select;
+
 
     private void Awake()
     {
@@ -82,6 +85,9 @@ public class Boss : MonoBehaviour
         Cross_Move_Check = false;
         Wait_Select = 0;
         Wait_Select_Check = false;
+
+        Attack_Select_Check = false;
+        Attack_Select = 0;
     }
 
     // Start is called before the first frame update
@@ -96,8 +102,21 @@ public class Boss : MonoBehaviour
 
         if (Boss_State == 1)
         {
-            //Pattern_Chess();
-            Pattern_Relink();
+            if (Attack_Select_Check == false)
+            {
+                Attack_Select = Random.Range(1, 3);
+                Attack_Select_Check = true;
+            }
+
+            if (Attack_Select == 1)
+            {
+                Pattern_Chess();
+            }
+
+            if (Attack_Select == 2)
+            {
+                Pattern_Relink();
+            }
         }
 
         if (Boss_State == 2)
@@ -140,6 +159,7 @@ public class Boss : MonoBehaviour
                 Wait_Timer = 0.0f;
              }
             Wait_Select_Check = true;
+            Attack_Select_Check = false;
         }
 
         if (Wait_Timer > 7.0f)
