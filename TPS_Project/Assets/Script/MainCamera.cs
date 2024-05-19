@@ -7,6 +7,9 @@ using UnityEngine.UIElements;
 
 public class MainCamera : MonoBehaviour
 {
+
+    private Setting_Saver Setting_Saver;
+
     public GameObject Player;
 
     public GameObject Player_Center;
@@ -60,6 +63,8 @@ public class MainCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Setting_Saver = GameObject.Find("Setting_Saver").GetComponent<Setting_Saver>();
+
         ResetCamera();
 
     }
@@ -115,9 +120,9 @@ public class MainCamera : MonoBehaviour
 
         Camera_Center = Pl_Pos;
 
-        rotation_X = Input.GetAxis("Mouse X") * speed_X;
+        rotation_X = Input.GetAxis("Mouse X") * speed_X * Setting_Saver.Mouse_Speed;
 
-        rotation_Y = Input.GetAxis("Mouse Y") * speed_Y;
+        rotation_Y = Input.GetAxis("Mouse Y") * speed_Y * Setting_Saver.Mouse_Speed;
 
         Angle_X += rotation_X * Time.deltaTime; // 앵글 = 파이값, 마우스 움직이는거에 넣으면 될듯
 
