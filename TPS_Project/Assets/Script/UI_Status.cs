@@ -94,6 +94,7 @@ public class UI_Status : MonoBehaviour
                 Time.timeScale = 0.0f;
                 Pause.SetActive(true);
                 Pause_Check = true;
+                Cursor.visible = true;
             }
 
             else if (Pause_Check == true)
@@ -101,6 +102,7 @@ public class UI_Status : MonoBehaviour
                 Time.timeScale = 1.0f;
                 Pause.SetActive(false);
                 Pause_Check = false;
+                Cursor.visible = false;
             }
         }
     }
