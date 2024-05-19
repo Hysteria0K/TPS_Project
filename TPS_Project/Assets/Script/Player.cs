@@ -41,6 +41,8 @@ public class Player : MonoBehaviour
 
     public bool Die_Check = false;
 
+    public GameObject Die_UI;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -57,6 +59,7 @@ public class Player : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         Breath_Safe = false;
         animator.SetBool("Die", false);
+        Die_UI.SetActive(false);
     }
 
     // Update is called once per frame
@@ -151,6 +154,8 @@ public class Player : MonoBehaviour
         if (Die_Check == false)
         {
             animator.SetBool("Die", true);
+            Cursor.visible = true;
+            Die_UI.SetActive(true);
             Die_Check = true;
         }
     }

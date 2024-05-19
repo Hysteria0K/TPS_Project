@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Tutorial_Exit : MonoBehaviour
+public class Retry_Button : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -18,12 +17,8 @@ public class Tutorial_Exit : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void Reload_Scene()
     {
-        if (other.CompareTag("Player"))
-        {
-            Cursor.visible = true;
-            SceneManager.LoadScene("Title");
-        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
