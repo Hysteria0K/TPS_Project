@@ -39,6 +39,8 @@ public class Player : MonoBehaviour
 
     public bool Breath_Safe;
 
+    public bool Die_Check = false;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -54,6 +56,7 @@ public class Player : MonoBehaviour
         characterController= GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         Breath_Safe = false;
+        animator.SetBool("Die", false);
     }
 
     // Update is called once per frame
@@ -85,7 +88,7 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Com_Controller.GetComponent<Com_Controller>().Interaction_Mode != true)
+        if (Com_Controller.GetComponent<Com_Controller>().Interaction_Mode != true && Player_Hp > 0)
         {
             Move();
         }
@@ -145,7 +148,11 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
-
+        if (Die_Check == false)
+        {
+            animator.SetBool("Die", true);
+            Die_Check = true;
+        }
     }
 }
 

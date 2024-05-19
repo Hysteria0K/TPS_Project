@@ -72,74 +72,78 @@ public class MainCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1) && Player.GetComponent<Player>().Zoom_Check == false && Stage_1_Exit.Start_FadeOut == false && Time.timeScale != 0.0f)
+        if (Player.GetComponent<Player>().Die_Check == false)
         {
-            Player.GetComponent<Player>().Zoom_Check = true;
-
-            if (Com_Controller.GetComponent<Com_Controller>().Interaction_Mode == true)
+            if (Input.GetMouseButtonDown(1) && Player.GetComponent<Player>().Zoom_Check == false && Stage_1_Exit.Start_FadeOut == false && Time.timeScale != 0.0f)
             {
-                Com_Controller.GetComponent<Com_Controller>().Interaction_Enabled = true;
-                Com_Controller.GetComponent<Com_Controller>().Interaction_Mode = false;
+                Player.GetComponent<Player>().Zoom_Check = true;
+
+                if (Com_Controller.GetComponent<Com_Controller>().Interaction_Mode == true)
+                {
+                    Com_Controller.GetComponent<Com_Controller>().Interaction_Enabled = true;
+                    Com_Controller.GetComponent<Com_Controller>().Interaction_Mode = false;
+                }
+
+            }
+            else if (Input.GetMouseButtonDown(1) && Player.GetComponent<Player>().Zoom_Check == true && Stage_1_Exit.Start_FadeOut == false && Time.timeScale != 0.0f)
+            {
+                ResetCamera();
             }
 
+            if (Angle_Y < Y_Minimum)
+            {
+                Angle_Y += 0.2f;
+            }
+
+            else if (Angle_Y > Y_Maximum)
+            {
+                Angle_Y = Y_Maximum;
+            }
+
+            if (Angle_Y < -30.0f)
+            {
+                Angle_Y = -30.0f;
+            }
+
+            Recoil_Control();
+
+            Camera_Collision();
         }
-        else if (Input.GetMouseButtonDown(1) && Player.GetComponent<Player>().Zoom_Check == true && Stage_1_Exit.Start_FadeOut == false && Time.timeScale != 0.0f)
-        {
-            ResetCamera();
-        }
-
-        if (Angle_Y < Y_Minimum)
-        {
-            Angle_Y += 0.2f;
-        }
-
-        else if (Angle_Y > Y_Maximum)
-        {
-            Angle_Y = Y_Maximum;
-        }
-
-        if (Angle_Y < -30.0f)
-        {
-            Angle_Y = -30.0f;
-        }
-
-        Recoil_Control();
-
-        Camera_Collision();
-
     }
     void FixedUpdate()
     {
-        Camera_Zoom_Correction();
-
-        Zoom();
-
-        Pl_Pos = Player.GetComponent<Player>().Player_Position;
-
-        Pl_Pos.y = Pl_Pos.y + Camera_Y_Set;
-
-        Camera_Center = Pl_Pos;
-
-        rotation_X = Input.GetAxis("Mouse X") * speed_X * Setting_Saver.Mouse_Speed;
-
-        rotation_Y = Input.GetAxis("Mouse Y") * speed_Y * Setting_Saver.Mouse_Speed;
-
-        Angle_X += rotation_X * Time.deltaTime; // 앵글 = 파이값, 마우스 움직이는거에 넣으면 될듯
-
-        if (Angle_Y < Y_Maximum || rotation_Y > 0)
+        if (Player.GetComponent<Player>().Die_Check == false)
         {
-            Angle_Y -= rotation_Y * Time.deltaTime;
+            Camera_Zoom_Correction();
+
+            Zoom();
+
+            Pl_Pos = Player.GetComponent<Player>().Player_Position;
+
+            Pl_Pos.y = Pl_Pos.y + Camera_Y_Set;
+
+            Camera_Center = Pl_Pos;
+
+            rotation_X = Input.GetAxis("Mouse X") * speed_X * Setting_Saver.Mouse_Speed;
+
+            rotation_Y = Input.GetAxis("Mouse Y") * speed_Y * Setting_Saver.Mouse_Speed;
+
+            Angle_X += rotation_X * Time.deltaTime; // 앵글 = 파이값, 마우스 움직이는거에 넣으면 될듯
+
+            if (Angle_Y < Y_Maximum || rotation_Y > 0)
+            {
+                Angle_Y -= rotation_Y * Time.deltaTime;
+            }
+
+            if (Angle_X < 0) Angle_X += 2 * Mathf.PI;
+            else if (Angle_X > 2 * Mathf.PI) Angle_X -= 2 * Mathf.PI;
+
+            this.transform.position = Camera_Center + new Vector3(Mathf.Sin(Angle_X), 0, Mathf.Cos(Angle_X)) * Radius;
+
+            float_angle = Angle_X * 180.0f / Mathf.PI;
+
+            this.transform.rotation = Quaternion.Euler(new Vector3(Angle_Y, float_angle - Camera_Correction, 0) + Player.GetComponent<Gun>().Recoil);
         }
-
-        if (Angle_X < 0) Angle_X += 2*Mathf.PI;
-        else if (Angle_X > 2*Mathf.PI) Angle_X -= 2*Mathf.PI;
-
-        this.transform.position = Camera_Center + new Vector3(Mathf.Sin(Angle_X), 0, Mathf.Cos(Angle_X)) * Radius;
-
-        float_angle = Angle_X * 180.0f/Mathf.PI;
-
-        this.transform.rotation = Quaternion.Euler(new Vector3(Angle_Y, float_angle - Camera_Correction, 0) + Player.GetComponent<Gun>().Recoil);
-
     }
 
     private void Zoom()

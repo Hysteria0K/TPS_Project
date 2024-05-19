@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
+    public GameObject Player;
     public GameObject BulletPrefab;
     public GameObject BulletStart;
     public GameObject Camera;
@@ -65,36 +66,38 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Decrease_Recoil();
-
-        if (Fire_Ready)
+        if (Player.GetComponent<Player>().Die_Check == false)
         {
-            switch (Fire_Mode)
+            Decrease_Recoil();
+
+            if (Fire_Ready)
             {
-                case (0):
-                    {
-                        SemiAuto();
-                        break;
-                    }
-                case (1):
-                    {
-                        BurstFire();
-                        break;
-                    }
-                case (2):
-                    {
-                        FullAuto();
-                        break;
-                    }
+                switch (Fire_Mode)
+                {
+                    case (0):
+                        {
+                            SemiAuto();
+                            break;
+                        }
+                    case (1):
+                        {
+                            BurstFire();
+                            break;
+                        }
+                    case (2):
+                        {
+                            FullAuto();
+                            break;
+                        }
+                }
+            }
+
+            if (Com_Controller.GetComponent<Com_Controller>().Interaction_Mode != true)
+            {
+                Reload();
+                ChangeMode();
             }
         }
-
-        if (Com_Controller.GetComponent<Com_Controller>().Interaction_Mode != true)
-        {
-            Reload();
-            ChangeMode();
-        }
-
     }
     private void ChangeMode()
     {

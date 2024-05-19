@@ -1936,6 +1936,7 @@ MonoBehaviour:
   Position_Check: 0
   Com_Controller: {fileID: 576162834}
   Breath_Safe: 0
+  Die_Check: 0
 --- !u!114 &411984343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1948,6 +1949,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 930835c2a07b53943a16457bb34c4fe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 411984340}
   BulletPrefab: {fileID: 2494969164914488067, guid: 29bf4d0522dc03a47bff851c6870abea, type: 3}
   BulletStart: {fileID: 502287210}
   Camera: {fileID: 1537891617}

@@ -87,7 +87,7 @@ public class UI_Status : MonoBehaviour
 
     private void Pause_ESC()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) && Pause.GetComponent<Pause_Button>().IsSetting == false)
+        if(Input.GetKeyDown(KeyCode.Escape) && Pause.GetComponent<Pause_Button>().IsSetting == false && player.Die_Check == false)
         {
             if (Pause_Check == false)
             {

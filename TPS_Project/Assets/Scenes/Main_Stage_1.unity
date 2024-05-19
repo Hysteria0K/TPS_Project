@@ -44667,6 +44667,7 @@ MonoBehaviour:
   Position_Check: 0
   Com_Controller: {fileID: 139453593}
   Breath_Safe: 0
+  Die_Check: 0
 --- !u!143 &1988465864
 CharacterController:
   m_ObjectHideFlags: 0
@@ -44697,6 +44698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 930835c2a07b53943a16457bb34c4fe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 1988465860}
   BulletPrefab: {fileID: 2494969164914488067, guid: 29bf4d0522dc03a47bff851c6870abea, type: 3}
   BulletStart: {fileID: 1782997945}
   Camera: {fileID: 963194225}
