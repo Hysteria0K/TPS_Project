@@ -34,6 +34,8 @@ public class Boss : MonoBehaviour
 
     public GameObject Pattern_1;
 
+    public GameObject Pattern_5;
+
     public GameObject Moving_Point;
 
     private float Moving_Speed;
@@ -107,7 +109,7 @@ public class Boss : MonoBehaviour
         {
             if (Attack_Select_Check == false)
             {
-                Attack_Select = Random.Range(4, 5);
+                Attack_Select = Random.Range(1, 6);
                 Attack_Select_Check = true;
             }
 
@@ -129,6 +131,11 @@ public class Boss : MonoBehaviour
             if (Attack_Select == 4)
             {
                 Pattern_Lucifer();
+            }
+
+            if (Attack_Select == 5)
+            {
+                Pattern_Cross();
             }
 
         }
@@ -272,6 +279,31 @@ public class Boss : MonoBehaviour
     {
         Boss_Body.LookAt(Player);
         Lucifer_Manager.Lucifer_Pattern();
+    }
+
+    private void Pattern_Cross() // Pattern_5
+    {
+        Boss_Body.LookAt(Player); //바라보기
+        if (Pattern_1_First == false)
+        {
+            animator.SetInteger("State", 1);
+            Instantiate(Pattern_5, new Vector3(65.48f, 4.5098f, 14.94f), Quaternion.Euler(0, 0, 0), Pattern_Canvas);
+            Pattern_1_First = true;
+        }
+
+        if (Pattern_1_First == true)
+        {
+            Pattern_1_Timer += Time.deltaTime;
+
+            if (Pattern_1_Timer > 1.0f)
+            {
+                animator.SetInteger("State", 2);
+                Instantiate(Pattern_5, new Vector3(65.48f, 4.5098f, 14.94f), Quaternion.Euler(0, 180, 0), Pattern_Canvas);
+                Boss_State = 2;
+                Pattern_1_Timer = 0.0f;
+                Pattern_1_First = false;
+            }
+        }
     }
 
 }

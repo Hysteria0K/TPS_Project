@@ -16281,6 +16281,7 @@ MonoBehaviour:
   Sphere_Select_Check: 0
   Boss: {fileID: 1765793644}
   Time_End: 0
+  animator: {fileID: 1900928481}
 --- !u!1 &462607735
 GameObject:
   m_ObjectHideFlags: 0
