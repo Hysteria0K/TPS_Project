@@ -400,6 +400,7 @@ GameObject:
   - component: {fileID: 1404178327}
   - component: {fileID: 1404178329}
   - component: {fileID: 1404178328}
+  - component: {fileID: 1404178330}
   m_Layer: 5
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
@@ -524,6 +525,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1404178326}
   m_CullTransparentMesh: 1
+--- !u!114 &1404178330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1404178326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9d61582a8ed7634f8cabcb554a822e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Time: 0
+  Clear_Time_Text: {fileID: 1404178328}
 --- !u!1 &1468386128
 GameObject:
   m_ObjectHideFlags: 0
@@ -717,7 +732,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Go To Main
+  m_text: Go To Title
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3ef2d1156d3feb5448758776569a6d86, type: 2}
   m_sharedMaterial: {fileID: -6129561773626002130, guid: 3ef2d1156d3feb5448758776569a6d86, type: 2}
@@ -1037,7 +1052,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2133583673}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1404178330}
+        m_TargetAssemblyTypeName: Clear_Time, Assembly-CSharp
+        m_MethodName: Title_Button
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2133583673
 MonoBehaviour:
   m_ObjectHideFlags: 0
