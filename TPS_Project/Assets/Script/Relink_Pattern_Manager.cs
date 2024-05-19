@@ -42,7 +42,7 @@ public class Relink_Pattern_Manager : MonoBehaviour
     {
         Pattern_Start = false;
         Pattern_Timer = 0.0f;
-        Pattern_Timer_Limit = 30.0f;
+        Pattern_Timer_Limit = 25.0f;
         Animation_Check = false;
 }
 
