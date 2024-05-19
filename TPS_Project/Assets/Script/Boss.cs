@@ -117,6 +117,12 @@ public class Boss : MonoBehaviour
             {
                 Pattern_Relink();
             }
+
+            if (Attack_Select == 3)
+            {
+                Pattern_Breath();
+            }
+
         }
 
         if (Boss_State == 2)
@@ -247,4 +253,10 @@ public class Boss : MonoBehaviour
         Boss_Body.LookAt(Player);
         Relink_Manager.Relink_Pattern();
     }
+
+    private void Pattern_Breath() // Pattern_3
+    {
+
+    }
+
 }
