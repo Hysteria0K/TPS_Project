@@ -54,9 +54,10 @@ public class Boss : MonoBehaviour
 
     public Breath_Pattern_Manager Breath_Manager;
 
+    public Lucifer_Pattern_Manager Lucifer_Manager;
+
     private bool Attack_Select_Check;
     private int Attack_Select;
-
 
     private void Awake()
     {
@@ -106,7 +107,7 @@ public class Boss : MonoBehaviour
         {
             if (Attack_Select_Check == false)
             {
-                Attack_Select = Random.Range(1, 4);
+                Attack_Select = Random.Range(4, 4);
                 Attack_Select_Check = true;
             }
 
@@ -123,6 +124,11 @@ public class Boss : MonoBehaviour
             if (Attack_Select == 3)
             {
                 Pattern_Breath();
+            }
+
+            if (Attack_Select == 4)
+            {
+                Pattern_Lucifer();
             }
 
         }
@@ -161,7 +167,7 @@ public class Boss : MonoBehaviour
 
         if (Wait_Timer > 3.5f && Wait_Select_Check == false)
         {
-             if (Random.Range(0,2) == 1)
+             if (Random.Range(0,3) == 0)
              {
                 Wait_Select = 1;
                 Wait_Timer = 0.0f;
@@ -260,6 +266,12 @@ public class Boss : MonoBehaviour
     {
         Boss_Body.LookAt(Player);
         Breath_Manager.Breath_Pattern();
+    }
+
+    private void Pattern_Lucifer() // Pattern_4
+    {
+        Boss_Body.LookAt(Player);
+        Lucifer_Manager.Lucifer_Pattern();
     }
 
 }
