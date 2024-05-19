@@ -37,6 +37,8 @@ public class Player : MonoBehaviour
 
     public GameObject Com_Controller;
 
+    public bool Breath_Safe;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -51,6 +53,7 @@ public class Player : MonoBehaviour
     {
         characterController= GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
+        Breath_Safe = false;
     }
 
     // Update is called once per frame

@@ -52,6 +52,8 @@ public class Boss : MonoBehaviour
 
     public Relink_Pattern_Manager Relink_Manager;
 
+    public Breath_Pattern_Manager Breath_Manager;
+
     private bool Attack_Select_Check;
     private int Attack_Select;
 
@@ -104,7 +106,7 @@ public class Boss : MonoBehaviour
         {
             if (Attack_Select_Check == false)
             {
-                Attack_Select = Random.Range(1, 3);
+                Attack_Select = Random.Range(1, 4);
                 Attack_Select_Check = true;
             }
 
@@ -256,7 +258,8 @@ public class Boss : MonoBehaviour
 
     private void Pattern_Breath() // Pattern_3
     {
-
+        Boss_Body.LookAt(Player);
+        Breath_Manager.Breath_Pattern();
     }
 
 }

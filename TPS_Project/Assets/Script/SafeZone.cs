@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class SafeZone : MonoBehaviour
 {
+    public GameObject Breath_Pattern_Manager;
+
+    public Player Player;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -20,7 +24,7 @@ public class SafeZone : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("안전");
+            other.GetComponent<Player>().Breath_Safe = true;
         }
     }
 
@@ -28,7 +32,7 @@ public class SafeZone : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("안안전");
+            other.GetComponent<Player>().Breath_Safe = false;
         }
     }
 }
