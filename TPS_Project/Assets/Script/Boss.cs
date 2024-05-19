@@ -107,7 +107,7 @@ public class Boss : MonoBehaviour
         {
             if (Attack_Select_Check == false)
             {
-                Attack_Select = Random.Range(4, 4);
+                Attack_Select = Random.Range(4, 5);
                 Attack_Select_Check = true;
             }
 

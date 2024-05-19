@@ -32,6 +32,9 @@ public class Lucifer_Pattern_Manager : MonoBehaviour
 
     public Boss Boss;
     public bool Time_End;
+
+    public Animator animator;
+    private bool Animation_Check;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +45,7 @@ public class Lucifer_Pattern_Manager : MonoBehaviour
         Pattern_Timer = 0.0f;
         Pattern_Timer_Limit = 20.0f;
         Time_End = false;
+        Animation_Check = false;
 }
 
     // Update is called once per frame
@@ -56,6 +60,7 @@ public class Lucifer_Pattern_Manager : MonoBehaviour
 
         if (Create_Sphere_Check == false)
         {
+            animator.SetInteger("State", 1);
             Time_End = false;
             Create_Sphere(Pos1);
             Create_Sphere(Pos2);
@@ -69,12 +74,18 @@ public class Lucifer_Pattern_Manager : MonoBehaviour
             Create_Sphere(Pos10);           
             Create_Sphere(Pos11);
             Create_Sphere(Pos12);
-
+            Animation_Check = true;
             Create_Sphere_Check = true;
         }
 
         if (Create_Sphere_Check == true)
         {
+            if (Animation_Check == true && Pattern_Timer >= 1.0f)
+            {
+                animator.SetInteger("State", 2);
+                Animation_Check = false;
+            }
+
             if (Pattern_Timer >= Pattern_Timer_Limit)
             {
                 Boss.Boss_State = 2;
