@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Boss : MonoBehaviour
 {
@@ -22,8 +24,6 @@ public class Boss : MonoBehaviour
     public int Boss_State;  // 1 = attack 2 = wait 3 = die
 
     public Animator animator;
-
-    private float animTime;
 
     public Transform Player;
 
@@ -61,6 +61,14 @@ public class Boss : MonoBehaviour
     private bool Attack_Select_Check;
     private int Attack_Select;
 
+    private float Timer;
+
+    private float Timer_Limit = 3.0f;
+
+    public Image Panel;
+
+    private bool Move_Correction;
+
     private void Awake()
     {
         Hp = 150000;
@@ -78,8 +86,6 @@ public class Boss : MonoBehaviour
 
         Wait_Timer = 0.0f;
 
-        animTime = 0.0f;
-
         Right_Side = true;
 
         Pos_X = 66.0f;
@@ -93,6 +99,8 @@ public class Boss : MonoBehaviour
 
         Attack_Select_Check = false;
         Attack_Select = 0;
+
+        Move_Correction = false;
     }
 
     // Start is called before the first frame update
@@ -104,6 +112,10 @@ public class Boss : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Hp <= 0 && Boss_State != 3)
+        {
+            Boss_State = 3;
+        }
 
         if (Boss_State == 1)
         {
@@ -158,6 +170,10 @@ public class Boss : MonoBehaviour
             }
         }
 
+        if (Boss_State == 3)
+        {
+            Die();
+        }
 
     }
     public void Enemy_Hp_Update()
@@ -306,4 +322,29 @@ public class Boss : MonoBehaviour
         }
     }
 
+    private void Die()
+    {
+        if (Move_Correction == false)
+        {
+            animator.SetInteger("State", 4);
+            Boss_Body.transform.position = new Vector3(Boss_Body.position.x, Boss_Body.position.y + 4.5f, Boss_Body.position.z);
+            Move_Correction = true;
+        }
+
+        Boss_Body.LookAt(new Vector3(Boss_Body.position.x, -60.0f, Boss_Body.position.z));
+        Boss_Body.position = Vector3.MoveTowards(Boss_Body.position, new Vector3(Boss_Body.position.x, -60.0f, Boss_Body.position.z), Time.deltaTime * Moving_Speed *1.2f);
+
+        FadeOut();
+    }
+
+    private void FadeOut()
+    {
+        Timer += Time.deltaTime;
+        Panel.color = new Color(0, 0, 0, Timer / Timer_Limit);
+
+        if (Timer >= Timer_Limit)
+        {
+            SceneManager.LoadScene("Stage_2_Clear");
+        }
+    }
 }
