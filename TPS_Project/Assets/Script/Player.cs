@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
 
         if (Player_Hp <= 0)
         {
-            // Á×À½
+            Die();
         }
 
         if (Com_Controller.GetComponent<Com_Controller>().Interaction_Mode != true)
@@ -141,6 +141,11 @@ public class Player : MonoBehaviour
             UI_Status.GetComponent<UI_Status>().UI_Update();
             Instantiate(Heal_Particle, this.gameObject.transform.position, Quaternion.Euler(-90, 0, 0), this.gameObject.transform);
         }
+    }
+
+    private void Die()
+    {
+
     }
 }
 
