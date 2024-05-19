@@ -153,11 +153,13 @@ public class Boss : MonoBehaviour
         {
             Boss_Body.LookAt(Moving_Point.transform);
             Boss_Body.position = Vector3.MoveTowards(Boss_Body.position, Moving_Point.transform.position, Time.deltaTime * Moving_Speed);
+            animator.SetInteger("State", 3);
         }
 
         if (Boss_Body.position == Moving_Point.transform.position && Cross_Move_Check == false)
         {
             Cross_Move_Check = true;
+            animator.SetInteger("State", 2);
         }
 
         if (Cross_Move_Check == true)
@@ -216,5 +218,9 @@ public class Boss : MonoBehaviour
                 Pattern_1_First = false;
             }
         }
+    }
+    private void Pattern_Relink() // Pattern_2
+    {
+
     }
 }
