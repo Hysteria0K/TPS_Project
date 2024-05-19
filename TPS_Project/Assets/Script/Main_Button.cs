@@ -20,6 +20,8 @@ public class Main_Button : MonoBehaviour
     public Button Tuto;
     public Button Sett;
     public Button Exit;
+
+    public GameObject Setting_UI;
     // Start is called before the first frame update
     void Start()
     {
@@ -91,6 +93,12 @@ public class Main_Button : MonoBehaviour
         #else
             Application.Quit(); // 어플리케이션 종료
         #endif
+    }
+
+    public void SettingButton()
+    {
+        Setting_UI.SetActive(true);
+        this.gameObject.SetActive(false);
     }
 
 
