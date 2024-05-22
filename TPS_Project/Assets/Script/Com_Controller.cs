@@ -25,6 +25,12 @@ public class Com_Controller : MonoBehaviour
 
     public Crystal_Controller Crystal_Controller;
 
+    public Gun Gun;
+
+    public UI_Status UI_Status;
+
+    public Reload Reload;
+
     public float Timer;  // 패턴이 발동되는 시간
 
     private float Pattern_Time = 31.0f; // 간격
@@ -168,8 +174,13 @@ public class Com_Controller : MonoBehaviour
         if (Interaction_Enabled == true && Input.GetKeyDown(KeyCode.E) && Player.GetComponent<Player>().Zoom_Check == false)
         {
             Player.GetComponent<Animator>().SetFloat("Speed", 0);
+            Player.GetComponent<Animator>().SetBool("Reloading", false);
             Interaction_Enabled = false;
             Interaction_Mode = true;
+            Gun.Reload_Timer = 0.0f;
+            Reload.reload.fillAmount = 0.0f;
+            Gun.Reload_Check = false;
+            UI_Status.UI_Update();
         }
     }
     private void Create_Key()

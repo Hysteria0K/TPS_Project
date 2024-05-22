@@ -3787,6 +3787,9 @@ MonoBehaviour:
   Key_UI: {fileID: 7393911337583344439, guid: 88a837001bb494342a6b951dc062c892, type: 3}
   Pattern_UI: {fileID: 868178399}
   Crystal_Controller: {fileID: 1037317875}
+  Gun: {fileID: 1988465867}
+  UI_Status: {fileID: 27306181}
+  Reload: {fileID: 80370152}
   Timer: 0
   Pattern_Miss: 1
   Interaction_Enabled: 0
@@ -45527,6 +45530,8 @@ MonoBehaviour:
   Max_Recoil_x: 0
   Calculated_Recoil_X: 0
   Fire_Check: 0
+  Reload_Timer: 0
+  Reload_Check: 0
 --- !u!4 &1988465869 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7673487251499544664, guid: c98043d57e0190845b790d7b92990bee, type: 3}

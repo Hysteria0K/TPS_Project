@@ -36,27 +36,33 @@ public class Key_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Com_Pattern_Controller.Key_Miss == true)
+        if (Time.timeScale != 0)
         {
-            Destroy(this.gameObject);
-        }
+            if (Com_Pattern_Controller.Key_Miss == true)
+            {
+                Destroy(this.gameObject);
+            }
 
-        if (Com_Pattern_Controller.Interaction_Mode == false)
-        {
-            Com_Pattern_Controller.Key_Created = false;
-            Destroy(this.gameObject);
-        }
+            if (Com_Pattern_Controller.Interaction_Mode == false)
+            {
+                Com_Pattern_Controller.Key_Created = false;
+                Destroy(this.gameObject);
+            }
 
-        if (Com_Pattern_Controller.Interaction_Mode == true && Com_Pattern_Controller.Key_Created == true && Com_Pattern_Controller.Pattern_State == State && Key_Block == false)
-        {
-            Press_Check();
+            if (Com_Pattern_Controller.Interaction_Mode == true && Com_Pattern_Controller.Key_Created == true && Com_Pattern_Controller.Pattern_State == State && Key_Block == false)
+            {
+                Press_Check();
+            }
         }
     }
     private void LateUpdate()
     {
-        if (Key_Block == true && Input.anyKeyDown && Com_Pattern_Controller.Pattern_State == State && Com_Pattern_Controller.Interaction_Mode == true && Com_Pattern_Controller.Key_Created == true)
+        if (Time.timeScale != 0)
         {
-            Key_Block = false;
+            if (Key_Block == true && Input.anyKeyDown && Com_Pattern_Controller.Pattern_State == State && Com_Pattern_Controller.Interaction_Mode == true && Com_Pattern_Controller.Key_Created == true)
+            {
+                Key_Block = false;
+            }
         }
     }
 

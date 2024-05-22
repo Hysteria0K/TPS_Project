@@ -43,10 +43,10 @@ public class Gun : MonoBehaviour
     private float Recoil_Timer = 0.0f;
     private float Recoil_Timer_Limit = 0.005f;
 
-    private float Reload_Timer = 0.0f;
+    public float Reload_Timer = 0.0f;
     private float Reload_Timer_Limit = 2.0f;
     private float Reload_Timer_Tactical = 1.0f;
-    private bool Reload_Check = false;
+    public bool Reload_Check = false;
 
     Animator animator;
     // Start is called before the first frame update
