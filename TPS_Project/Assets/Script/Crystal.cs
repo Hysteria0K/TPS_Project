@@ -18,6 +18,11 @@ public class Crystal : MonoBehaviour
 
     public GameObject Crystal_Controller;
 
+    private AudioSource Crystal_Sound;
+    private void Awake()
+    {
+        Crystal_Sound = GameObject.Find("Crystal_Sound").GetComponent<AudioSource>();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +37,7 @@ public class Crystal : MonoBehaviour
         {
             Crystal_Controller.GetComponent<Crystal_Controller>().Crystal_Count--;
             Enemy_Hp_UI.SetActive(false);
+            Crystal_Sound.Play();
             Destroy(this.gameObject);
         }
 
