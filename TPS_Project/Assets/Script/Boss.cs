@@ -79,7 +79,7 @@ public class Boss : MonoBehaviour
 
         Boss_ATK_Sound = GetComponent<AudioSource>();
 
-        Hp = 150000;
+        Hp = 100000;
         Origin_Hp = Hp;
 
         Enemy_Hp_Update();
