@@ -16,11 +16,23 @@ public class Key_Controller : MonoBehaviour
 
     public bool Key_Block = false;
 
+    private AudioSource Com_Control_Sound;
+
+    private AudioSource Com_Success_Sound;
+
+    private AudioSource Com_Wrong_Sound;
+
     // Start is called before the first frame update
 
     private void Awake()
     {
         Com_Pattern_Controller = GameObject.Find("Com_Pattern_Controller").GetComponent<Com_Controller>();
+
+        Com_Control_Sound = GameObject.Find("Com_Control_Sound").GetComponent<AudioSource>();
+
+        Com_Success_Sound = GameObject.Find("Com_Success_Sound").GetComponent<AudioSource>();
+
+        Com_Wrong_Sound = GameObject.Find("Com_Wrong_Sound").GetComponent<AudioSource>();
     }
     void Start()
     {
@@ -70,16 +82,14 @@ public class Key_Controller : MonoBehaviour
     {
         foreach (KeyCode keyCode in System.Enum.GetValues(typeof(KeyCode)))
         {
-            if (Input.GetKeyDown(keyCode))
+            if (Input.GetKeyDown(keyCode) && Time.timeScale != 0)
             {
-                Debug.Log("Pressed key: " + keyCode);
-
                 if (keyCode.ToString() == Key_Data)
                 {
-                    Debug.Log("정답");
-
+                    Com_Control_Sound.Play();
                     if (State == 7)
                     {
+                        Com_Success_Sound.Play();
                         Com_Pattern_Controller.Success_Pattern();
                     }
                     else
@@ -92,7 +102,7 @@ public class Key_Controller : MonoBehaviour
 
                 else
                 {
-                    Debug.Log("오답");
+                    Com_Wrong_Sound.Play();
                     Com_Pattern_Controller.Key_Miss = true;
                     Destroy(this.gameObject);
                 }

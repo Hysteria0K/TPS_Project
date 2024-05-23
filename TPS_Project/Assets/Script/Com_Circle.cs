@@ -22,9 +22,13 @@ public class Com_Circle : MonoBehaviour
 
     private bool hit_check = false;
 
+    private AudioSource Com_Failure_Sound;
+
     void Awake()
     {
         Com_Controller = Pattern_Controller.GetComponent<Com_Controller>();
+
+        Com_Failure_Sound = GameObject.Find("Com_Failure_Sound").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -80,6 +84,7 @@ public class Com_Circle : MonoBehaviour
 
     private void Pattern_Failure()
     {
+        Com_Failure_Sound.Play();
         Com_Controller.Pattern_Miss += 1;
         Table_Pattern.SetActive(false);
         Pattern_UI.SetActive(false);

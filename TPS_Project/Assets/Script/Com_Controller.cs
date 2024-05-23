@@ -52,6 +52,13 @@ public class Com_Controller : MonoBehaviour
 
     private bool Scene_Check = true;
 
+    private AudioSource Com_Start_Sound;
+
+    private void Awake()
+    {
+        Com_Start_Sound = GameObject.Find("Com_Start_Sound").GetComponent<AudioSource>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -106,6 +113,7 @@ public class Com_Controller : MonoBehaviour
 
             if (Timer > Pattern_Time)
             {
+                Com_Start_Sound.Play();
                 Select_Pattern();
                 Timer = 0.0f;
             }
@@ -173,6 +181,7 @@ public class Com_Controller : MonoBehaviour
 
         if (Interaction_Enabled == true && Input.GetKeyDown(KeyCode.E) && Player.GetComponent<Player>().Zoom_Check == false)
         {
+            Player.GetComponent<AudioSource>().Stop();
             Player.GetComponent<Animator>().SetFloat("Speed", 0);
             Player.GetComponent<Animator>().SetBool("Reloading", false);
             Interaction_Enabled = false;

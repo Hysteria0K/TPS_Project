@@ -45,12 +45,24 @@ public class Servant : MonoBehaviour
     private bool UI_Active;
 
     private Com_Controller Com_Controller;
+
+    private AudioSource Servant_ATK_Sound;
+    private AudioSource Servant_Die_Sound;
+
+    private bool Die_Sound_Check;
+
+    private float Mumble_Timer;
+    private float Mumble_Timer_Limit;
     // Start is called before the first frame update
     private void Awake()
     {
         Player_Pos = GameObject.Find("Player").GetComponent<Transform>();
 
         Com_Controller = GameObject.Find("Com_Pattern_Controller").GetComponent<Com_Controller>();
+
+        Servant_ATK_Sound = GameObject.Find("Servant_ATK_Sound").GetComponent<AudioSource>();
+
+        Servant_Die_Sound = GetComponent<AudioSource>();
 
         State = 0;
 
@@ -68,6 +80,7 @@ public class Servant : MonoBehaviour
 
         UI_Active = false;
 
+        Die_Sound_Check = false;
 
     }
     void Start()
@@ -81,6 +94,10 @@ public class Servant : MonoBehaviour
         capsuleCollider = GetComponent<CapsuleCollider>();
 
         animator.SetInteger("State", 0);
+
+        Mumble_Timer = 0.0f;
+
+        Mumble_Timer_Limit = 8.0f;
     }
 
     // Update is called once per frame
@@ -123,6 +140,14 @@ public class Servant : MonoBehaviour
 
     private void Move()
     {
+        Mumble_Timer += Time.deltaTime;
+
+        if (Mumble_Timer >= Mumble_Timer_Limit)
+        {
+            Servant_Atk_Range.GetComponent<AudioSource>().Play();
+            Mumble_Timer = 0.0f;
+        }
+
         if (Saved_Check == false)
         {
             navMeshAgent.SetDestination(Player_Pos.position);
@@ -149,6 +174,8 @@ public class Servant : MonoBehaviour
             animator.SetInteger("State", 1);
 
             State = 1;
+
+            Mumble_Timer = 0.0f;
         }
 
         if (Servant_Atk_Range.GetComponent<Servant_Atk_Range>().Damage_Check == true)
@@ -169,6 +196,7 @@ public class Servant : MonoBehaviour
             {
                 if (Attack_Check == false)
                 {
+                    Servant_ATK_Sound.Play();
                     Attack_Check = true;
                 }
             }
@@ -197,6 +225,12 @@ public class Servant : MonoBehaviour
     }
     private void Die()
     {
+        if (Servant_Die_Sound.isPlaying == false && Die_Sound_Check == false)
+        {
+            Servant_Die_Sound.Play();
+            Die_Sound_Check = true;
+        }
+
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Die 0") == true)
         {
             animTime = animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
