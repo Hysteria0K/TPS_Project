@@ -23,7 +23,7 @@ public class Setting_UI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Pause.GetComponent<Pause_Button>().IsSetting = false;
+            Pause.GetComponent<Pause_Button_Stage_1>().IsSetting = false;
             Pause_UI.SetActive(true);
             this.gameObject.SetActive(false);
         }

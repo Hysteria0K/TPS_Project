@@ -22,6 +22,12 @@ public class Main_Button : MonoBehaviour
     public Button Exit;
 
     public GameObject Setting_UI;
+    private AudioSource Audio;
+
+    private void Awake()
+    {
+        Audio = GetComponent<AudioSource>();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +52,7 @@ public class Main_Button : MonoBehaviour
 
     public void PlayButton()
     {
+        Audio.Play();
         Start_FadeOut = true;
 
         Play.interactable = false;
@@ -67,6 +74,7 @@ public class Main_Button : MonoBehaviour
 
     public void TutorialButton()
     {
+        Audio.Play();
         Tuto_FadeOut = true;
 
         Play.interactable = false;
@@ -88,8 +96,9 @@ public class Main_Button : MonoBehaviour
 
     public void ExitButton()
     {
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
+        Audio.Play();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
         #else
             Application.Quit(); // 어플리케이션 종료
         #endif
@@ -97,6 +106,7 @@ public class Main_Button : MonoBehaviour
 
     public void SettingButton()
     {
+        Audio.Play();
         Setting_UI.SetActive(true);
         this.gameObject.SetActive(false);
     }

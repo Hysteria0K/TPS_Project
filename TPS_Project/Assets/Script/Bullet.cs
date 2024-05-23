@@ -20,6 +20,13 @@ public class Bullet : MonoBehaviour
 
     public int Bullet_Type;
 
+    private AudioSource Hit_Sound;
+
+    void Awake()
+    {
+        Hit_Sound = GameObject.Find("Hit_Sound").GetComponent<AudioSource>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +67,7 @@ public class Bullet : MonoBehaviour
 
         if (other.CompareTag("Enemy"))
         {
+            Hit_Sound.Play();
             other.GetComponent<Test_Enemy>().Hp -= Damage;
             other.GetComponent<Test_Enemy>().Enemy_Hp_Update();
             DamageTextPrefab.GetComponent<TextMeshProUGUI>().text = Damage.ToString();
@@ -71,6 +79,7 @@ public class Bullet : MonoBehaviour
         {
             if (other.GetComponent<Servant>().State != 2)
             {
+                Hit_Sound.Play();
                 other.GetComponent<Servant>().Hp -= Damage;
                 other.GetComponent<Servant>().Servant_Hp_Update();
                 DamageTextPrefab.GetComponent<TextMeshProUGUI>().text = Damage.ToString();
@@ -81,6 +90,7 @@ public class Bullet : MonoBehaviour
 
         if (other.CompareTag("Boss"))
         {
+            Hit_Sound.Play();
             other.GetComponent<Boss>().Hp -= Damage;
             other.GetComponent<Boss>().Enemy_Hp_Update();
             DamageTextPrefab.GetComponent<TextMeshProUGUI>().text = Damage.ToString();
@@ -90,6 +100,7 @@ public class Bullet : MonoBehaviour
 
         if (other.CompareTag("Crystal"))
         {
+            Hit_Sound.Play();
             other.GetComponent<Crystal>().Hp -= Damage;
             other.GetComponent<Crystal>().Enemy_Hp_Update();
             DamageTextPrefab.GetComponent<TextMeshProUGUI>().text = Damage.ToString();
@@ -101,6 +112,7 @@ public class Bullet : MonoBehaviour
         {
             if (other.GetComponent<Fireball>().Fireball_Color == Bullet_Type)
             {
+                Hit_Sound.Play();
                 other.GetComponent<Fireball>().Hp -= Damage;
                 DamageTextPrefab.GetComponent<TextMeshProUGUI>().text = Damage.ToString();
                 Instantiate(DamageTextPrefab, new Vector3(960 + Random.Range(-60, 60), 540 + Random.Range(-30, 30), 10), Quaternion.Euler(0, 0, 0), Canvas.transform);

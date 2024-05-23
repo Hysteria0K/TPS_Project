@@ -49,6 +49,17 @@ public class Gun : MonoBehaviour
     public bool Reload_Check = false;
 
     Animator animator;
+
+    public AudioSource Reload_Sound;
+    public AudioSource Trigger_Sound;
+
+    public GameObject GunFire_Sound_Prefab;
+
+    private void Awake()
+    {
+
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -103,6 +114,7 @@ public class Gun : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.V) && Burst_Check == false && Auto_Check == false && Time.timeScale != 0.0f)
         {
+            Trigger_Sound.Play();
             if (Fire_Mode != 2) Fire_Mode += 1;
             else Fire_Mode = 0;
             UI_Status.GetComponent<UI_Status>().UI_Update();
@@ -128,6 +140,7 @@ public class Gun : MonoBehaviour
                 Reload_Image.GetComponent<Reload>().reload.fillAmount += 1 / Reload_Timer_Limit * Time.deltaTime;
                 if (Reload_Timer > Reload_Timer_Limit)
                 {
+                    Reload_Sound.Play();
                     Magazine = Full_Magazine - 1;
                     Reload_Check = false;
                     animator.SetBool("Reloading", false);
@@ -141,6 +154,7 @@ public class Gun : MonoBehaviour
                 Reload_Image.GetComponent<Reload>().reload.fillAmount += 1 / Reload_Timer_Tactical * Time.deltaTime;
                 if (Reload_Timer > Reload_Timer_Tactical)
                 {
+                    Reload_Sound.Play();
                     Magazine = Full_Magazine;
                     Reload_Check = false;
                     animator.SetBool("Reloading", false);
@@ -299,6 +313,7 @@ public class Gun : MonoBehaviour
 
     private void Fire()
     {
+        Instantiate(GunFire_Sound_Prefab, BulletStart.transform.position, BulletStart.transform.rotation);
         BulletPrefab.GetComponent<Bullet>().Bullet_Type = Fire_Mode;
         Instantiate(BulletPrefab, BulletStart.transform.position, BulletStart.transform.rotation);
         Instantiate(CartridgePrefab, CartridgeOut.transform.position,

@@ -43,6 +43,11 @@ public class Player : MonoBehaviour
 
     public GameObject Die_UI;
 
+    private AudioSource AudioSource;
+
+    public AudioSource Heal_Sound;
+
+    private AudioSource Player_Die_Sound;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -51,6 +56,10 @@ public class Player : MonoBehaviour
         Player_Hp_Update();
 
         Heal_Pack = 5;
+
+        AudioSource = GetComponent<AudioSource>();
+
+        Player_Die_Sound = GameObject.Find("Player_Die_Sound").GetComponent<AudioSource>();
     }
 
     void Start()
@@ -60,6 +69,7 @@ public class Player : MonoBehaviour
         Breath_Safe = false;
         animator.SetBool("Die", false);
         Die_UI.SetActive(false);
+        Player_Die_Sound.Stop();
     }
 
     // Update is called once per frame
@@ -123,6 +133,21 @@ public class Player : MonoBehaviour
         }
 
         animator.SetFloat("Speed", characterController.velocity.magnitude);
+
+        if (animator.GetFloat("Speed") >= 3.0f)
+        {
+            if(AudioSource.isPlaying == false)
+            {
+                AudioSource.Play();
+            }
+
+            AudioSource.loop = true;
+        }
+
+        else
+        {
+            AudioSource.loop = false;
+        }
     }
 
     public void Player_Hp_Update()
@@ -141,6 +166,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.C) && Heal_Pack > 0 && Player_Hp < Player_Origin_Hp && Time.timeScale != 0.0f)
         {
+            Heal_Sound.Play();
             Heal_Pack -= 1;
             Player_Hp += Player_Origin_Hp / 2;
             Player_Hp_Update();
@@ -153,6 +179,7 @@ public class Player : MonoBehaviour
     {
         if (Die_Check == false)
         {
+            Player_Die_Sound.Play();
             animator.SetBool("Die", true);
             Cursor.visible = true;
             Die_UI.SetActive(true);

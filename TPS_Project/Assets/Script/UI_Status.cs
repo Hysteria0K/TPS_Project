@@ -87,7 +87,7 @@ public class UI_Status : MonoBehaviour
 
     private void Pause_ESC()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) && Pause.GetComponent<Pause_Button>().IsSetting == false && player.Die_Check == false)
+        if(Input.GetKeyDown(KeyCode.Escape) && Pause.GetComponent<Pause_Button_Stage_1>().IsSetting == false && player.Die_Check == false)
         {
             if (Pause_Check == false)
             {
@@ -95,6 +95,7 @@ public class UI_Status : MonoBehaviour
                 Pause.SetActive(true);
                 Pause_Check = true;
                 Cursor.visible = true;
+                Player.GetComponent<AudioSource>().loop = false;
             }
 
             else if (Pause_Check == true)
