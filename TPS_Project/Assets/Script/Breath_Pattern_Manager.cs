@@ -116,6 +116,8 @@ public class Breath_Pattern_Manager : MonoBehaviour
 
             if (Danger_Timer >= Danger_Timer_Limit && Explosion_Check == false)
             {
+                Explosion_Sound.Play();
+                Burning_Sound.Play();
                 Public_Breath.SetActive(true);
                 Left_Side_Breath.SetActive(true);
                 Create_Explosion(Left_1, Left_2, Left_3, Left_4);
@@ -125,6 +127,7 @@ public class Breath_Pattern_Manager : MonoBehaviour
 
             if (Danger_Timer >= Patten_End_Time)
             {
+                Burning_Sound.Stop();
                 Left_Side_Safe.SetActive(false);
                 Public_Breath.SetActive(false);
                 Left_Side_Breath.SetActive(false);
