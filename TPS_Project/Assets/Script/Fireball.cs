@@ -21,10 +21,16 @@ public class Fireball : MonoBehaviour
 
     private int Damage;
 
+    private AudioSource Explosion_Sound;
+
+    private AudioSource Mini_Explosion_Sound;
+
     private void Awake()
     {
         Player = GameObject.Find("Player");
         Player_Pos = Player.GetComponent<Transform>();
+        Explosion_Sound = GameObject.Find("Explosion_Sound").GetComponent<AudioSource>();
+        Mini_Explosion_Sound = GameObject.Find("Mini_Explosion_Sound").GetComponent<AudioSource>();
 
     }
     // Start is called before the first frame update
@@ -51,6 +57,7 @@ public class Fireball : MonoBehaviour
             Fireball_Timer += Time.deltaTime;
             if (Hp <= 0)
             {
+                Mini_Explosion_Sound.Play();
                 Destroy(this.gameObject);
             }
         }
@@ -60,6 +67,7 @@ public class Fireball : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Explosion_Sound.Play();
             Instantiate(Explosion, this.transform.position, this.transform.rotation);
             Player.GetComponent<Player>().Player_Hp -= Damage;
             Player.GetComponent<Player>().Player_Hp_Update();

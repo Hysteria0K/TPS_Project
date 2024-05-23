@@ -69,8 +69,16 @@ public class Boss : MonoBehaviour
 
     private bool Move_Correction;
 
+    private AudioSource Boss_Die_Sound;
+
+    private AudioSource Boss_ATK_Sound;
+
     private void Awake()
     {
+        Boss_Die_Sound = GameObject.Find("Boss_Die_Sound").GetComponent<AudioSource>();
+
+        Boss_ATK_Sound = GetComponent<AudioSource>();
+
         Hp = 150000;
         Origin_Hp = Hp;
 
@@ -114,6 +122,7 @@ public class Boss : MonoBehaviour
     {
         if (Hp <= 0 && Boss_State != 3)
         {
+            Boss_Die_Sound.Play();
             Boss_State = 3;
         }
 
@@ -121,6 +130,7 @@ public class Boss : MonoBehaviour
         {
             if (Attack_Select_Check == false)
             {
+                Boss_ATK_Sound.Play();
                 Attack_Select = Random.Range(1, 6);
                 Attack_Select_Check = true;
             }

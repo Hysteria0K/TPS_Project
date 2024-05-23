@@ -33,6 +33,17 @@ public class Breath_Pattern_Manager : MonoBehaviour
     private bool animator_Check;
 
     public Player Player;
+
+    private AudioSource Explosion_Sound;
+
+    private AudioSource Burning_Sound;
+
+    private void Awake()
+    {
+        Explosion_Sound = GameObject.Find("Explosion_Sound").GetComponent<AudioSource>();
+
+        Burning_Sound = GameObject.Find("Burning_Sound").GetComponent<AudioSource>();
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -72,6 +83,8 @@ public class Breath_Pattern_Manager : MonoBehaviour
 
             if (Danger_Timer >= Danger_Timer_Limit && Explosion_Check == false)
             {
+                Explosion_Sound.Play();
+                Burning_Sound.Play();
                 Public_Breath.SetActive(true);
                 Right_Side_Breath.SetActive(true);
                 Create_Explosion(Right_1, Right_2, Right_3, Right_4);
@@ -81,6 +94,7 @@ public class Breath_Pattern_Manager : MonoBehaviour
 
             if (Danger_Timer >= Patten_End_Time)
             {
+                Burning_Sound.Stop();
                 Right_Side_Safe.SetActive(false);
                 Public_Breath.SetActive(false);
                 Right_Side_Breath.SetActive(false);

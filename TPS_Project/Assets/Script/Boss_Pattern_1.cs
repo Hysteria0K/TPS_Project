@@ -23,9 +23,11 @@ public class Boss_Pattern_1 : MonoBehaviour
 
     private bool Explosion_Check;
 
+    private AudioSource Explosion_Sound;
     private void Awake()
     {
         Player = GameObject.Find("Player").GetComponent<Player>();
+        Explosion_Sound = GameObject.Find("Explosion_Sound").GetComponent<AudioSource>();
     }
     // Start is called before the first frame update
     void Start()
@@ -55,6 +57,7 @@ public class Boss_Pattern_1 : MonoBehaviour
 
             if (Explosion_Check == false)
             {
+                Explosion_Sound.Play();
                 Explosion.SetActive(true);
                 Border.SetActive(false);
                 Filling.SetActive(false);
