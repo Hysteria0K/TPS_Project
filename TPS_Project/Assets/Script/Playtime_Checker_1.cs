@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class Playtime_Checker : MonoBehaviour
+public class Playtime_Checker_1 : MonoBehaviour
 {
     public float Timer;
     private void Awake()
@@ -18,6 +20,9 @@ public class Playtime_Checker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Timer += Time.deltaTime;
+        if (SceneManager.GetActiveScene().name == "Main_Stage_1")
+        {
+            Timer += Time.deltaTime;
+        }
     }
 }

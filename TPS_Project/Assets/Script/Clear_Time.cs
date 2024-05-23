@@ -8,21 +8,24 @@ public class Clear_Time : MonoBehaviour
 {
     public float Time;
     private int int_Time;
-    private Playtime_Checker Playtime_Checker;
+    private Playtime_Checker_1 Playtime_Checker_1;
+    private Playtime_Checker_2 Playtime_Checker_2;
 
     public TextMeshProUGUI Clear_Time_Text;
     // Start is called before the first frame update
     private void Awake()
     {
-        Playtime_Checker = GameObject.Find("Playtime_Checker").GetComponent<Playtime_Checker>();
+        Playtime_Checker_1 = GameObject.Find("Playtime_Checker_Stage_1").GetComponent<Playtime_Checker_1>();
+        Playtime_Checker_2 = GameObject.Find("Playtime_Checker_Stage_2").GetComponent<Playtime_Checker_2>();
     }
     void Start()
     {
         Cursor.visible = true;
-        Time = Playtime_Checker.Timer;
+        Time = Playtime_Checker_1.Timer + Playtime_Checker_2.Timer;
         int_Time = Mathf.RoundToInt(Time);
         Text_Update();
-        Destroy(Playtime_Checker);
+        Destroy(Playtime_Checker_1);
+        Destroy(Playtime_Checker_2);
     }
 
     // Update is called once per frame

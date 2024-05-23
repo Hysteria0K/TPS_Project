@@ -4984,6 +4984,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8969971835649028076, guid: 4e661a4b9cf2fac4dbc610ceb59e77b8, type: 3}
   m_PrefabInstance: {fileID: 118880270}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &119188999
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 119189001}
+  - component: {fileID: 119189002}
+  m_Layer: 0
+  m_Name: Playtime_Checker_Stage_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &119189001
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119188999}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 20
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &119189002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119188999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b30746e36d39324e895b23736494d07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Timer: 0
 --- !u!1001 &121544310
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7791,8 +7836,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1132652378}
-        m_TargetAssemblyTypeName: Pause_Button, Assembly-CSharp
+      - m_Target: {fileID: 1132652381}
+        m_TargetAssemblyTypeName: Pause_Button_Stage_2, Assembly-CSharp
         m_MethodName: Title_Button
         m_Mode: 1
         m_Arguments:
@@ -35878,8 +35923,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1132652378}
-        m_TargetAssemblyTypeName: Pause_Button, Assembly-CSharp
+      - m_Target: {fileID: 1922293492}
+        m_TargetAssemblyTypeName: Pause_Button_Stage_2, Assembly-CSharp
         m_MethodName: Reload_Scene
         m_Mode: 1
         m_Arguments:
@@ -37122,8 +37167,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1132652378}
-        m_TargetAssemblyTypeName: Pause_Button, Assembly-CSharp
+      - m_Target: {fileID: 1132652382}
+        m_TargetAssemblyTypeName: Pause_Button_Stage_1, Assembly-CSharp
         m_MethodName: Setting_Button
         m_Mode: 1
         m_Arguments:
@@ -40125,9 +40170,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1132652377}
-  - component: {fileID: 1132652378}
   - component: {fileID: 1132652380}
   - component: {fileID: 1132652379}
+  - component: {fileID: 1132652381}
+  - component: {fileID: 1132652382}
   m_Layer: 5
   m_Name: Pause
   m_TagString: Untagged
@@ -40158,21 +40204,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1132652378
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1132652376}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d855651b89414fd4aab5c4f1e0f1132e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Pause_UI: {fileID: 1757367969}
-  Setting_UI: {fileID: 855806565}
-  IsSetting: 0
 --- !u!82 &1132652379
 AudioSource:
   m_ObjectHideFlags: 0
@@ -40281,6 +40312,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46bd8bbb88493e84c8bd6df9e23a6506, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1132652381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132652376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e667f2b497b73534eafbf3c234fb8bb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Pause_UI: {fileID: 1757367969}
+  Setting_UI: {fileID: 855806565}
+  IsSetting: 0
+--- !u!114 &1132652382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132652376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d855651b89414fd4aab5c4f1e0f1132e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Pause_UI: {fileID: 1757367969}
+  Setting_UI: {fileID: 855806565}
+  IsSetting: 0
 --- !u!1001 &1136231912
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54821,8 +54882,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1132652378}
-        m_TargetAssemblyTypeName: Pause_Button, Assembly-CSharp
+      - m_Target: {fileID: 1922293492}
+        m_TargetAssemblyTypeName: Pause_Button_Stage_2, Assembly-CSharp
         m_MethodName: Title_Button
         m_Mode: 1
         m_Arguments:
@@ -70693,6 +70754,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1922293491}
+  - component: {fileID: 1922293492}
   m_Layer: 5
   m_Name: Pause_UI
   m_TagString: Untagged
@@ -70723,6 +70785,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 33}
   m_SizeDelta: {x: 1920, y: 686}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1922293492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922293490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e667f2b497b73534eafbf3c234fb8bb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Pause_UI: {fileID: 1757367969}
+  Setting_UI: {fileID: 855806565}
+  IsSetting: 0
 --- !u!1001 &1922344668
 PrefabInstance:
   m_ObjectHideFlags: 0
